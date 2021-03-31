@@ -84,6 +84,25 @@ namespace OrderManagement
         public double Price { get => price; set => price = value; }
         public int Weight { get => weight; set => weight = value; }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Goods goods &&
+                   name == goods.name &&
+                   description == goods.description &&
+                   price == goods.price &&
+                   weight == goods.weight;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1442200354;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(description);
+            hashCode = hashCode * -1521134295 + price.GetHashCode();
+            hashCode = hashCode * -1521134295 + weight.GetHashCode();
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return $"\t\t[Goods]\n\t\tname:{name}\tprice:{price}\tweight:{weight}\tdescription:{description}";
