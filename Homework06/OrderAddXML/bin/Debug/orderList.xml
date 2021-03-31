@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <Id>00000</Id>
+    <Customer>
+      <Name>LiuFeifan</Name>
+      <Phone>18812345678</Phone>
+      <Address>WuHan</Address>
+      <Id>00001</Id>
+    </Customer>
+    <ItemList>
+      <OrderDetails>
+        <Id>00000</Id>
+        <Count>1</Count>
+        <Goods>
+          <Name>computer</Name>
+          <Description>Lenovo 16G 512G i5</Description>
+          <Price>4325.99</Price>
+          <Weight>1000</Weight>
+        </Goods>
+      </OrderDetails>
+    </ItemList>
+  </Order>
+</ArrayOfOrder>

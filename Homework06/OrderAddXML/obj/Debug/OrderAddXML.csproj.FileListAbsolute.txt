@@ -1,0 +1,7 @@
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\bin\Debug\OrderAddXML.exe.config
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\bin\Debug\OrderAddXML.exe
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\bin\Debug\OrderAddXML.pdb
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\obj\Debug\OrderAddXML.csprojAssemblyReference.cache
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\obj\Debug\OrderAddXML.csproj.CoreCompileInputs.cache
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\obj\Debug\OrderAddXML.exe
+C:\Users\19352\source\repos\DotNetHomework1\Homework06\OrderAddXML\obj\Debug\OrderAddXML.pdb
