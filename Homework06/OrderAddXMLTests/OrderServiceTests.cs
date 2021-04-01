@@ -51,10 +51,17 @@ namespace OrderAddXML.Tests
         }
 
         [TestMethod()]
-        public void AddTest()
+        public void AddTest1()
         {
             orderService.Add(order0);
             Assert.AreEqual(orderService.OrderList[0], order0);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AddTest2()
+        {
+            orderService.Add(null);
         }
 
         [TestMethod()]
@@ -66,28 +73,80 @@ namespace OrderAddXML.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(NullReferenceException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void DeleteTest2()
         {
             orderService.Delete(order0);
         }
 
         [TestMethod()]
-        public void Modify_AddItemTest()
+        public void Modify_AddItemTest1()
         {
             orderService.Add(order0);
             orderService.Modify_AddItem(order0, item1);
             Assert.AreEqual(orderService.OrderList[0].ItemList[1], item1);
-
         }
 
         [TestMethod()]
-        public void Modify_DeleteItemTest()
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_AddItemTest2()
+        {
+            orderService.Modify_AddItem(order0, item1);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_AddItemTest3()
+        {
+            orderService.Modify_AddItem(null, item1);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_AddItemTest4()
+        {
+            orderService.Add(order0);
+            orderService.Modify_AddItem(order0, null);
+        }
+
+        [TestMethod()]
+        public void Modify_DeleteItemTest1()
         {
             orderService.Add(order0);
             orderService.Modify_DeleteItem(order0, item0);
             Assert.IsTrue(orderService.OrderList[0].ItemList.Count == 0);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_DeleteItemTest2()
+        {
+            orderService.Modify_DeleteItem(order0, item0);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_DeleteItemTest3()
+        {
+            orderService.Modify_DeleteItem(null, item0);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_DeleteItemTest4()
+        {
+            orderService.Add(order0);
+            orderService.Modify_DeleteItem(order0, null);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Modify_DeleteItemTest5()
+        {
+            orderService.Add(order0);
+            orderService.Modify_DeleteItem(order0, item1);
+        }
+
 
         [TestMethod()]
         public void QueryByIdTest()

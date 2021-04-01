@@ -220,8 +220,7 @@ namespace OrderAddXML
 
         public int CompareTo(object obj)
         {
-            Order order = obj as Order;
-            if (order == null)
+            if (!(obj is Order order))
             {
                 throw new ArgumentException();
             }
@@ -237,6 +236,10 @@ namespace OrderAddXML
         public OrderService() { }
         public void Add(Order order)
         {
+            if(order == null)
+            {
+                throw new ArgumentException("添加失败：订单为空");
+            }
             orderList.Add(order);
         }
 
@@ -244,49 +247,38 @@ namespace OrderAddXML
         {
             if(!orderList.Remove(order))
             {
-                throw new NullReferenceException($"订单不存在");
+                throw new ArgumentException("删除失败：订单不存在");
             }
         }
 
         public void Modify_AddItem(Order order, OrderDetails item)
         {
-            try
+            int orderIndex = orderList.IndexOf(order);
+            if(orderIndex == -1)
             {
-                int orderIndex = orderList.IndexOf(order);
-                List<OrderDetails> items = orderList[orderIndex].ItemList;
-                items.Add(item);
-                orderList[orderIndex].ItemList = items;
+                throw new ArgumentException("修改失败：订单不存在");
             }
-            catch (ArgumentNullException e)
+            if(item == null)
             {
-                throw new ArgumentNullException($"{e.Message}:订单参数错误");
+                throw new ArgumentException("修改失败：订单明细为空");
             }
-            catch (IndexOutOfRangeException e)
-            {
-                throw new IndexOutOfRangeException($"{e.Message}:订单不存在");
-            }
+            orderList[orderIndex].ItemList.Add(item);
         }
 
         public void Modify_DeleteItem(Order order, OrderDetails item)
         {
-            try
+            int orderIndex = orderList.IndexOf(order);
+            if (orderIndex == -1)
             {
-                int orderIndex = orderList.IndexOf(order);
-                List<OrderDetails> items = orderList[orderIndex].ItemList;
-                items.Remove(item);
-                orderList[orderIndex].ItemList = items;
+                throw new ArgumentException("修改失败：订单不存在");
             }
-            catch (ArgumentNullException e)
+            if(item == null)
             {
-                throw new ArgumentNullException($"{e.Message}:订单参数错误");
+                throw new ArgumentException("修改失败：订单明细为空");
             }
-            catch (IndexOutOfRangeException e)
+            if (!orderList[orderIndex].ItemList.Remove(item))
             {
-                throw new IndexOutOfRangeException($"{e.Message}:订单不存在");
-            }
-            catch (NullReferenceException e)
-            {
-                throw new NullReferenceException($"{e.Message}:订单明细不存在");
+                throw new ArgumentException("修改失败：订单明细不存在");
             }
         }
         public List<Order> QueryById(string id)
