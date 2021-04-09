@@ -328,14 +328,8 @@ namespace OrderAddXML
             using (FileStream fs = new FileStream(filePath, FileMode.Open))
             {
                 List<Order> orders = (List<Order>)xmlSerializier.Deserialize(fs);
-                foreach(var order in orders)
-                {
-                    try
-                    {
-                        Add(order);
-                    }
-                    catch (OrderException e) { }
-                }
+                if (orders == null) return;
+                orderList.Union(orders);
             }
         }
     }
