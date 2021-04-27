@@ -1,10 +1,10 @@
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\bin\Debug\Cayley.exe.config
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\bin\Debug\Cayley.exe
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\bin\Debug\Cayley.pdb
-C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.csprojAssemblyReference.cache
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.Form1.resources
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.Properties.Resources.resources
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.csproj.GenerateResource.cache
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.csproj.CoreCompileInputs.cache
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.exe
 C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.pdb
+C:\Users\19352\source\repos\DotNetHomework1\Homework07\Cayley\obj\Debug\Cayley.csprojAssemblyReference.cache
