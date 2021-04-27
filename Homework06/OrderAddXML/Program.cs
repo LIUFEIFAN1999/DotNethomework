@@ -342,13 +342,13 @@ namespace OrderAddXML
     {
         static void Main(string[] args)
         {
-            Customer customer1 = new Customer("00001", "LiuFeifan", "18812345678");
+            /*Customer customer1 = new Customer("00001", "LiuFeifan", "18812345678");
             Goods pc = new Goods("computer", "Lenovo 16G 512G i5", 4325.99, 1000);
             OrderDetails item0 = new OrderDetails(pc, 1);
             Order order0 = new Order("00000", customer1, "Wuhan", item0);
             OrderService orderService = new OrderService();
             orderService.Add(order0);
-            /*orderService.Modify_AddItem(order0, item1);
+            *//*orderService.Modify_AddItem(order0, item1);
             orderService.Modify_AddItem(order0, item2);
             List<Order> queryOrderList = orderService.QueryByCustomer(customer1);
             foreach (Order myOrder in queryOrderList)
@@ -359,8 +359,12 @@ namespace OrderAddXML
             foreach (Order myOrder in queryOrderList)
             {
                 Console.WriteLine(myOrder);
-            }*/
-            orderService.Export("orderList.xml");
+            }*//*
+            orderService.Export("orderList.xml");*/
+            List<String> list = new List<string> { null, null, "1" };
+            Console.WriteLine(list.Count);
+            list.RemoveAll(item => item == null);
+            Console.WriteLine(list.Count);
         }
     }
 }
