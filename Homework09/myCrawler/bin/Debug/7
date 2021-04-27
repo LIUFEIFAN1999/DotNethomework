@@ -1,0 +1,830 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>首页 - 班级博客 - 博客园</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="//common.cnblogs.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/bundles/site.overwrite.min.css?v=WkwYmip9JFY4zyIR01J9aR31HiheUNHQX7HH-IJKhLo" />
+    
+    <link rel="stylesheet" href="/bundles/site.square.min.css?v=U1m2qKZjys7lCKX28NQY12orGaGWAE6dA_O_GOpuGso" />
+    
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.AMUI.progress.start();
+        });
+
+        $(window).load(function () {
+            $.AMUI.progress.done();
+        });
+
+        function login(anchor) {
+            var returnUri = location.href;
+            if (anchor && returnUri.indexOf("#" + anchor) < 0) {
+                returnUri += "#" + anchor;
+            }
+            location.href = "https://account.cnblogs.com/signin?returnUrl=" + encodeURIComponent(returnUri);
+            return false;
+        }
+
+        function logout() {
+            if (confirm("确认退出吗？")) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://account.cnblogs.com/signout",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status == 200) {
+                            location.reload(true);
+                        }
+                    },
+                });
+            }
+            return false;
+        }
+
+    </script>
+</head>
+<body>
+    
+    <header class="am-topbar am-topbar-fixed-top">
+        <div class="am-container">
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#collapse-head'}">
+                <span class="am-sr-only">导航切换</span><span class="iconfont">&#xe61e;</span>
+            </button>
+            <div class="am-collapse am-topbar-collapse" id="collapse-head">
+                <ul class="am-nav am-nav-pills am-topbar-nav" id="navigation-bar">
+                    <li class="am-active">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="">
+                        <a href="/campus">校区</a>
+                    </li>
+                    <li class="">
+                        <a href="/schoolclass">班级</a>
+                    </li>
+                    <li class="">
+                        <a href="/posts">博文</a>
+                    </li>
+                    <li class="">
+                        <a href="/comment">评论</a>
+                    </li>
+                    <li class="">
+                        <a href="/homework">作业</a>
+                    </li>
+                    <li class="new-entry">
+                        <a href="//academy.cnblogs.com">学习计划</a>
+                    </li>
+                </ul>
+                <div class="am-topbar-right">
+        <button onclick="window.location.href='//www.cnblogs.com'" class="am-btn am-btn-success am-topbar-btn am-btn-sm"><span class="iconfont">&#xe63e;</span> 博客园</button>
+    <button onclick="login()" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="iconfont">&#xe60b;</span> 登录</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+
+
+<div class="am-g am-container wrapper">
+    <div class="am-u-md-12">
+            <div id="schoolclass">
+                <h1 class="titlebar am-margin-top-sm">
+                    活跃班级<span class="iconfont titlebar-icon">&#xe610;</span>
+                    <span class="titlebar-line"></span>
+                    <a href="/schoolclass?sort=active" title="更多班级" class="titlebar-more">
+                        更多 &gt;
+                    </a>
+                </h1>
+                <ul class="am-avg-lg-3 am-margin-top-xl am-margin-bottom-lg">
+                        <li>
+                            <div class="am-gallery-item square-class-list">
+                                <div class="list-avatar">
+                                    <a href="/campus/syhgky/MyClass" target="_blank">
+                                        <img class="am-circle" src="//common.cnblogs.com/images/icons/edu-class2.png">
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li class="of-hidden">
+                                        <strong>
+                                            <a href="/campus/syhgky/MyClass" title="计算机191-5" target="_blank">计算机191-5</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/syhgky">沈阳化工大学科亚学院</a>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/syhgky">信息与控制工程系</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="am-gallery-item square-class-list">
+                                <div class="list-avatar">
+                                    <a href="/campus/buaa/ObjectOriented2021" target="_blank">
+                                        <img class="am-circle" src="https://img2020.cnblogs.com/edu/1200716/202103/1200716-20210302143213911-1352522526.png">
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li class="of-hidden">
+                                        <strong>
+                                            <a href="/campus/buaa/ObjectOriented2021" title="面向对象设计与构造2021" target="_blank">面向对象设计与构造2021</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/buaa">北京航空航天大学</a>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/buaa"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="am-gallery-item square-class-list">
+                                <div class="list-avatar">
+                                    <a href="/campus/academy/2021-Python" target="_blank">
+                                        <img class="am-circle" src="https://img2020.cnblogs.com/edu/1982917/202104/1982917-20210412085736091-1007712095.png">
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li class="of-hidden">
+                                        <strong>
+                                            <a href="/campus/academy/2021-Python" title="2021Python程序设计基础" target="_blank">2021Python程序设计基础</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/academy">博客园学院</a>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/academy">计算机学院</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="am-gallery-item square-class-list">
+                                <div class="list-avatar">
+                                    <a href="/campus/besti/2021-Besti-Python" target="_blank">
+                                        <img class="am-circle" src="//common.cnblogs.com/images/icons/edu-class1.png">
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li class="of-hidden">
+                                        <strong>
+                                            <a href="/campus/besti/2021-Besti-Python" title="2021年春季全院公选课-Python程序设计" target="_blank">2021年春季全院公选课-Python程序设计</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/besti">北京电子科技学院</a>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/besti"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="am-gallery-item square-class-list">
+                                <div class="list-avatar">
+                                    <a href="/campus/ahgc/machinelearning" target="_blank">
+                                        <img class="am-circle" src="//common.cnblogs.com/images/icons/edu-class6.png">
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li class="of-hidden">
+                                        <strong>
+                                            <a href="/campus/ahgc/machinelearning" title="机器学习实验-计算机18级" target="_blank">机器学习实验-计算机18级</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/ahgc">安徽工程大学</a>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/ahgc">计算机与信息学院</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="am-gallery-item square-class-list">
+                                <div class="list-avatar">
+                                    <a href="/campus/fzzcxy/2018CS" target="_blank">
+                                        <img class="am-circle" src="//common.cnblogs.com/images/icons/edu-class3.png">
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li class="of-hidden">
+                                        <strong>
+                                            <a href="/campus/fzzcxy/2018CS" title="2018级计算机和综合实验班" target="_blank">2018级计算机和综合实验班</a>
+                                        </strong>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/fzzcxy">福州大学至诚学院</a>
+                                    </li>
+                                    <li>
+                                        <a class="am-badge am-badge-success am-round" href="/campus/fzzcxy">计算机工程系</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                </ul>
+            </div>
+            <div id="blogpost">
+                <h1 class="titlebar">
+                    作业博文<span class="iconfont titlebar-icon">&#xe60c;</span>
+                    <span class="titlebar-line"></span>
+                    <a href="/posts?filter=quality" title="更多博文" class="titlebar-more">
+                        更多 &gt;
+                    </a>
+                </h1>
+                <div class="am-u-md-12">
+                    <ul class="am-list">
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/xiaoliu3033/p/14707738.html" target="_blank">Java第八次上机作业</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">1、编写一个简单程序，要求数组长度为5，分别赋值10，20，30，40，50，在控制台输出该数组的值。（知识点：数组定义和创建、一维数组初始化） public class test { /** * @param args */ public static void main(String[] arg </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/syhgky/MyClass" target="_blank"> 计算机191-5(沈阳化工大学科亚学院 - 信息与控制工程系)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/xiaoliu3033/" target="_blank"> 小刘今天没自闭</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 10:07
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 6
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/leopard1/p/14707730.html" target="_blank">第八次</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">1、编写一个简单程序，要求数组长度为5，分别赋值10，20，30，40，50，在控制台输出该数组的值。 public class T1 { /** * @param args */ public static void main(String[] args) { // TODO Auto-gener </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/syhgky/MyClass" target="_blank"> 计算机191-5(沈阳化工大学科亚学院 - 信息与控制工程系)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/leopard1/" target="_blank"> 我裂开</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 10:06
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 3
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/lsttt/p/14707703.html" target="_blank">第八周Java作业</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">1、编写一个简单程序，要求数组长度为5，分别赋值10，20，30，40，50，在控制台输出该数组的值。（知识点：数组定义和创建、一维数组初始化）[必做题]? package ktlx; public class lx1 { /** * @param args */ public static voi </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/syhgky/MyClass" target="_blank"> 计算机191-5(沈阳化工大学科亚学院 - 信息与控制工程系)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/lsttt/" target="_blank"> 一土它小木登子</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 10:01
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 3
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/gswxp2/p/14707507.html" target="_blank">OO第二单元总结</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">OO UNIT 2总结博客 同步块选择 第一次作业 本次作业中同步块的设计非常粗放，由于细粒度的锁出了一些bug没调出来，一气之下给类里绝大部分方法加了synchronized。本次作业中有 Dispatcher类和 ElevatorRunner 类中的一些共享变量在方法锁下被维护线程安全。由于我采 </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/gswxp2/" target="_blank"> goodgame</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 09:25
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 5
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/ArSpi/p/14707450.html" target="_blank">OO第二单元作业总结</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">OO第二单元作业总结 程序架构、同步块与锁 第五次作业 作为多线程的入门作业，第五次作业的难度较低，类的数量和代码行数也都是三次作业中最少的，如下图所示。 本次作业的架构较为简单，整体由四部分组成：主线程、输入线程、共享队列以及电梯线程。具体来说，本次作业中共有6个类，作用分别如下： MainCla </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/ArSpi/" target="_blank"> ArSpi</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 09:22
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 3
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/phm19231049/p/14692163.html" target="_blank">北航oo第二单元总结</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">北航oo第二单元总结 第一次作业 1.作业要求 本次作业要求实现单部ALS电梯，模拟电梯的上下行、开关门以及乘客的进出，可以采用任意的稍带策略。 2.实现方法 概述 建立了MainClass、Channel、Elevator1、Queue四个模块。MainClass用于创建输入进程和电梯进程。Cha </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/phm19231049/" target="_blank"> phm19231049</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 09:20
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 1
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/acy123/p/14702122.html" target="_blank">OO第二单元总结</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">OO第二单元总结 概述 本单元是多线程的练习单元，以电梯调度问题作为多线程的应用场景，以此来让我们熟悉常见的生产者-消费者多线程设计模式，同步代码块和锁的选择。下面我将从6个方面来总结第二单元的学习。 同步块与锁的选择 在多线程的编程中，临界区的划分非常重要，恰如其分的同步块划分和锁的选择可以保证多 </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/acy123/" target="_blank"> 弈～忆</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 09:11
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 0
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/LDWindSpace/p/14707279.html" target="_blank">面向实际的电梯模拟？ - 2021 面向对象程序设计第二单元总结</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">这一单元作业有一个统一主题——即多线程编程。其要求根据运行模式模拟一部或多部电梯搭载乘客从所在楼层到目标楼层的过程，且可以满足乘客在任何时间、可达楼层到达，并提供目标楼层。 我们的程序主要功能是：第一次作业为模拟一个标准ALS电梯运行，第二单元增加成多部电梯同时加入运行，第三次作业则是定义电梯的可达 </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/LDWindSpace/" target="_blank"> LD曲率空间</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 03:00
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 6
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/xrx20010491/p/14707276.html" target="_blank">OO第二单元总结博客</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">OO第二单元总结博客 一、大体架构 本单元的三次架构有些不同，因此同步块和锁的设置也不太相同。 1.第五次作业 第五次作业的架构并不复杂，我设计了一个请求队列WaitList用来保存乘客请求。输入线程作为生产者，每一架电梯作为消费者。因此，本次作业的锁即选择为主请求队列。同步块的设置为：对于输入线程 </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/xrx20010491/" target="_blank"> 徐睿霄</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 02:46
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 2
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="https://www.cnblogs.com/as70/p/14707271.html" target="_blank">词频统计与词云</a>
+                                    </h3>
+                                        <div class="am-u-sm-12 am-padding-left-0 am-list-main">
+                                            <div class="am-list-item-text description">本文包括： 1.安装第三方库 2.文本处理 3.词频统计 3.统计可视化 3.呈现词云 安装库 要用到的库有：PIL，wordcloud，numpy，matplotlib，jieba 导入库 1 from PIL import Image 2 import wordcloud 3 import nu </div>
+                                        </div>
+                                    <div class="am-u-sm-12 am-text-sm">
+                                        <div class="am-fr">
+                                            <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/academy/2021-Python" target="_blank"> 2021Python程序设计基础(博客园学院 - 计算机学院)</a>&nbsp;
+                                            <i class="iconfont">&#xe614;</i><a title="发布人" href="https://www.cnblogs.com/as70/" target="_blank"> 火蝇</a>&nbsp;
+                                            <span title="发布时间">
+                                                <i class="iconfont">&#xe616;</i> 2021-04-27 02:07
+                                            </span>&nbsp;
+                                            <span title="评论">
+                                                <i class="iconfont">&#xe606;</i> 0
+                                            </span>&nbsp;
+                                            <span title="阅读">
+                                                <i class="iconfont">&#xe641;</i> 0
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="homework">
+                <h1 class="titlebar">
+                    作业动态<span class="iconfont titlebar-icon">&#xe603;</span>
+                    <span class="titlebar-line"></span>
+                    <a href="/homework" title="更多作业" class="titlebar-more">
+                        更多 &gt;
+                    </a>
+                </h1>
+                <div class="am-u-md-12">
+                    <ul class="am-list">
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/fzu/FZUSESPR21/homework/11974" target="_blank">团队作业五——站立式会议&#x2B;alpha冲刺</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/kofyou/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1094802/20190909195003.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">提交规则 博客提交deadline：截止2021-05-14 23:00 在deadline前交，得实际得分 * 100%； 补交：在deadline 后两天内提交视为补交，得实际得分 * 50%；（忘记提交作业和补交扣分一致） 缺交：在deadline 之后两天未补交视为博客缺交，分数为0分； 作</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/fzu/FZUSESPR21" target="_blank"> 2021春软件工程实践|S班(福州大学)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/kofyou/" target="_blank"> kofyou</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-25 22:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 0
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/fzu/2021SpringSoftwareEngineeringPractice/homework/11975" target="_blank">团队作业五——站立式会议&#x2B;alpha冲刺</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/kofyou/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1094802/20190909195003.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">提交规则 博客提交deadline：截止2021-05-14 23:00 在deadline前交，得实际得分 * 100%； 补交：在deadline 后两天内提交视为补交，得实际得分 * 50%；（忘记提交作业和补交扣分一致） 缺交：在deadline 之后两天未补交视为博客缺交，分数为0分； 作</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/fzu/2021SpringSoftwareEngineeringPractice" target="_blank"> 2021春软件工程实践|W班(福州大学)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/kofyou/" target="_blank"> kofyou(徐明盛)</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-25 22:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 0
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/buaa/ObjectOriented2021/homework/11970" target="_blank">第二单元总结博客</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/ji-wu/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1200716/20170715214428.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">(1)总结分析三次作业中同步块的设置和锁的选择，并分析锁与同步块中处理语句之间的关系 (2)总结分析三次作业中的调度器设计，并分析调度器如何与程序中的线程进行交互 (3)从功能设计与性能设计的平衡方面，分析和总结自己第三次作业架构设计的可扩展性 画UML类图 画UML协作图(sequence dia</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/buaa/ObjectOriented2021" target="_blank"> 面向对象设计与构造2021(北京航空航天大学)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/ji-wu/" target="_blank"> 知北游手记</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-23 21:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 212
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/njxxgc/CPrograming/homework/11969" target="_blank">实验4</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/ccoo/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/simple_avatar.gif">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">实验4内容及提交、互评要求，详见课程群--&gt;实验文件夹--&gt;实验4文档。 ps: 实验4的互评规则及要求在实验4文档中有详细说明，请在提交截止日期以后一周内及时按要求互评。 互评截止时间为2021/05/07 10:00。</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/njxxgc/CPrograming" target="_blank"> 计算机程序设计(c语言)-2020级气科(南京信息工程大学)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/ccoo/" target="_blank"> cc00</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-23 10:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 3
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/hacz/kirk/homework/11972" target="_blank">基础算法题数组去重</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/lliumf/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1626793/20210116112931.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。 说明: 为什么返回数值是整数，但输出的答案是数组呢? 请注意，输入数组是以「引用」方式传</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/hacz/kirk" target="_blank"> 疯狂的小石头(河南财政税务高等专科学校 - 金融系)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/lliumf/" target="_blank"> liumingfang123</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-23 09:49
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 0
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/syhgky/MyClass/homework/11971" target="_blank">第八周作业</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/teacherguo/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1700511/20190918184431.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">1、编写一个简单程序，要求数组长度为5，分别赋值10，20，30，40，50，在控制台输出该数组的值。（知识点：数组定义和创建、一维数组初始化）[必做题]• 2、将一个字符数组的值（neusofteducation）拷贝到另一个字符数组中。（知识点：数组复制） [必做题]• 3、给定一个有9个整数（</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/syhgky/MyClass" target="_blank"> 计算机191-5(沈阳化工大学科亚学院 - 信息与控制工程系)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/teacherguo/" target="_blank"> Teacher丹丹</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-23 01:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 110
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/gdgy/2021Softwarecodedevelopmenttechnology/homework/11968" target="_blank">综合系统开发----需求分析</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/zhangrongyue/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/simple_avatar.gif">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">根据以下要求，写一篇随笔 基于下面的软件开发需求，请运用UML（统一建模语言），结合领域驱动设计方法、软件设计模式等知识，对上面所有内容进行建模，完成撰写需求规格说明书，完成项目后续的开发计划。 建立项目git仓库。项目后续的代码、文档都要通过git增量式管理。实现文档的版本化和增量式管理 软件开发</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/gdgy/2021Softwarecodedevelopmenttechnology" target="_blank"> 2021软件代码开发技术(广东工业大学 - 计算机学院)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/zhangrongyue/" target="_blank"> flowet</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-22 17:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 0
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                    <a href="/campus/xbsf/2018CST/homework/11967" target="_blank">实验五 团队作业2：团队项目选题</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/nwnu-daizh/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/simple_avatar.gif">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">任务内容参见：https://www.cnblogs.com/nwnu-daizh/p/14687473.html</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/xbsf/2018CST" target="_blank"> 2021年春软件工程课程班（2018级计算机科学与技术）(西北师范大学 - 计算机科学与工程学院)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/nwnu-daizh/" target="_blank"> 代祖华</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-21 23:32
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 0
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                        <span class="am-badge am-badge-success am-radius" title="已完成">✓</span>
+                                    <a href="/campus/fzzcxy/2018CS/homework/11966" target="_blank">第四次个人作业——案例分析</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/211806352xiedaotong/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1537716/20200828212507.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">声明：本作业以邹欣老师博客1和2为基础同时参考北京航空航天大学的案例分析进行修改 〇、说在前面的话 很多同学有疑惑： 软件工程课是否就是枯燥的理论课？ 或者是几个牛人拼命写代码，其他人抱大腿的课？ 要不然就是学习一个程序语言，练习某个框架，搞一个职业培训的课？ 都不对！软件工程有理论，有实践，更重要</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/fzzcxy/2018CS" target="_blank"> 2018级计算机和综合实验班(福州大学至诚学院 - 计算机工程系)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/211806352xiedaotong/" target="_blank"> xdt(谢道彤)</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-21 22:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 125
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-right">
+                                <h3 class="am-list-item-hd">
+                                        <span class="am-badge am-badge-success am-radius" title="已完成">✓</span>
+                                    <a href="/campus/fzzcxy/2018CS/homework/11964" target="_blank">第四次团队作业: git团队协作开发练习</a>
+                                </h3>
+                                    <div class="feed-avatar">
+                                        <a href="//www.cnblogs.com/c-aha/" target="_blank">
+                                            <img class="am-img-thumbnail" src="//pic.cnblogs.com/avatar/1526748/20200916000904.png">
+                                        </a>
+                                    </div>
+                                    <div class="avatar-item-text">
+                                        <div class="am-list-item-text description">第四次团队作业: git团队协作开发练习 本次作业需要提交的内容 在班级博客发布一篇随笔, 使用markdown语法进行排版布局 按要求在github上创建仓库,提交源代码. 一、问题描述 团队选题已经完成，随后不久就要进入到紧张刺激的 coding 阶段。但是考虑到大家并没有合作开发的经历，所以我</div>
+                                    </div>
+                                <div class="am-u-sm-12 am-text-sm">
+                                    <div class="am-fr">
+                                        <i class="iconfont">&#xe61f;</i><a title="班级" href="/campus/fzzcxy/2018CS" target="_blank"> 2018级计算机和综合实验班(福州大学至诚学院 - 计算机工程系)</a>&nbsp;
+                                        <i class="iconfont">&#xe614;</i><a title="发布人" href="//www.cnblogs.com/c-aha/" target="_blank"> coderplus(coderplus_tr)</a>&nbsp;
+                                        <span title="发布时间">
+                                            <i class="iconfont">&#xe616;</i> 2021-04-21 21:00
+                                        </span>&nbsp;
+                                        <span title="提交">
+                                            <i class="iconfont">&#xe600;</i> 22
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="overview">
+                <h1 class="titlebar">
+                    统计概览<span class="iconfont titlebar-icon">&#xe637;</span>
+                    <span class="titlebar-line"></span>
+                </h1>
+                <ul class="am-avg-lg-3 am-margin-top-xl am-margin-bottom-lg">
+                    <li>
+                        <div class="am-gallery-item square-over-view">
+                            <h3 class="title">112</h3>
+                            <small>校区</small>
+                            <div class="iconfont">&#xe610;</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="am-gallery-item square-over-view">
+                            <h3 class="title">598</h3>
+                            <small>班级</small>
+                            <div class="iconfont">&#xe639;</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="am-gallery-item square-over-view">
+                            <h3 class="title">30557</h3>
+                            <small>成员</small>
+                            <div class="iconfont">&#xe6bf;</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="am-gallery-item square-over-view">
+                            <h3 class="title">4750</h3>
+                            <small>作业</small>
+                            <div class="iconfont">&#xe603;</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="am-gallery-item square-over-view">
+                            <h3 class="title">158708</h3>
+                            <small>博文</small>
+                            <div class="iconfont">&#xe60c;</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="am-gallery-item square-over-view">
+                            <h3 class="title">124648</h3>
+                            <small>评论</small>
+                            <div class="iconfont">&#xe62b;</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    </div>
+</div>
+    <footer class="footer">
+        <p>
+            Copyright &copy;2021
+            <a href="//www.cnblogs.com" target="_blank">Cnblogs, Inc.</a>
+            <span id="powered_by">Powered by .NET Core on Kubernetes</span>.
+            <a href="https://github.com/cnblogs/edu/issues" target="_blank">
+                <span class="iconfont">&#xe620;问题反馈</span>
+            </a>&nbsp;
+            <a href="https://edu.cnblogs.com/lib/document/document.html" target="_blank">帮助文档</a>&nbsp;
+            <a href="https://beian.miit.gov.cn/" target="_blank">沪ICP备09004260号-1</a>
+        </p>
+    </footer>
+    <script type="text/javascript" src="/bundles/common.min.js?v=tFfg4O1b9_4B2ulTPlKZmunn2Z_gJBvOgSYnbWgDDIA"></script>
+    
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments);
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-48445196-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

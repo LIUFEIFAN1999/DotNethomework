@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin-when-crossorigin" />
+    <meta name="description" content="OO UNIT 2总结博客 同步块选择 第一次作业 本次作业中同步块的设计非常粗放，由于细粒度的锁出了一些bug没调出来，一气之下给类里绝大部分方法加了synchronized。本次作业中有 Disp" />
+    <meta property="og:description" content="OO UNIT 2总结博客 同步块选择 第一次作业 本次作业中同步块的设计非常粗放，由于细粒度的锁出了一些bug没调出来，一气之下给类里绝大部分方法加了synchronized。本次作业中有 Disp" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>OO第二单元总结 - goodgame - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=zS6-e1bxywlu3kpHvpr1J6MySwya3ztFtEnS7RYQ0Fk" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=2uJkpdACLVfstRQ7zeCFK19brTwKuDEaNBLgKz9nm3A" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=DwDRKMd1bmjnJZ4iQqrTCO9QLlYb6OZaUAzHoHIIihg" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/gswxp2/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/gswxp2/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/gswxp2/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 674673;
+        var currentBlogApp = 'gswxp2';
+        var cb_enable_mathjax = true;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'CodingLife';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2021-04-27 09:25';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=CJtNAb53Ex2fBes_h70ZUTUv5aZTxcvvM7mCnA44svE"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'math', processEscapes: true },
+        TeX: {
+        equationNumbers: { autoNumber: ['AMS'], useLabelIds: true },
+        extensions: ['extpfeil.js', 'mediawiki-texvc.js'],
+        Macros: {bm: "\\boldsymbol"}
+        },
+        'HTML-CSS': { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script src="https://mathjax.cnblogs.com/2_7_5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;v=20200504"></script>
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a>
+    <div id="top_nav" class="navbar forpc">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding"><a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a></li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔">
+                        <img id="new_post_icon" class="navbar-icon" src="/images/aggsite/newpost.svg" alt="写随笔" />
+                    </a>
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=J0WS2P2iPgaIVgXxcAhliw4AFZIpaTWxtdoNAv9eiCA" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <img id="navbar_lite_mode_on" src="/images/lite-mode-check.svg" class="hide" /><span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+                            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/gswxp2/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/gswxp2/">goodgame</a>
+</h1>
+<h2></h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/gswxp2/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/goodgame">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/gswxp2/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<div id="blog_stats_place_holder"><script>loadBlogStats();</script></div>
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/gswxp2/p/14707507.html">
+    <span>OO第二单元总结</span>
+    
+
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+<h1 id="oo-unit-2总结博客">OO UNIT 2总结博客</h1>
+<h2 id="同步块选择">同步块选择</h2>
+<h3 id="第一次作业">第一次作业</h3>
+<p>本次作业中同步块的设计非常粗放，由于细粒度的锁出了一些bug没调出来，一气之下给类里绝大部分方法加了synchronized。本次作业中有  Dispatcher类和  ElevatorRunner  类中的一些共享变量在方法锁下被维护线程安全。由于我采用的是直接的方法锁，与同步块中处理语句关系不紧密（因为锁都一个样）。被锁住的方法主要特点是方法中会去读写一些共享资源，比如各个线程的状态信息，和等待队列的写入删除等。由于本次代码中只有一个等待队列，  ElevatorRunner  类也只有一个实例，所以对等待队列的访问转化成了对实例对象的锁。</p>
+<p>比较典型的代码块有</p>
+<pre><code class="language-java">public synchronized void add(PersonRequest personRequest) {
+    waitintList.add(personRequest);
+    notifyAll();
+}
+
+public synchronized void setMode(String mode) {
+    this.mode = mode;
+    notifyAll();
+}
+
+public synchronized void setEnd(boolean end) {
+    this.end = end;
+}
+</code></pre>
+<h2 id="第二次作业">第二次作业</h2>
+<p>在第二、三次作业中我重写了  ElevatorRunner  类中的锁的设置。这两次作业中我们需要支持多台电梯，又由于我采用的是抢人的策略，所以电梯中的等待队列将被多个电梯线程共享。为了针对这点，我将  ElevatorRunner  中的多个synchronized方法进行了改写，将对线程对象的锁变成了对waitintList的锁，同步块中都是对waitintList 的直接读写和间接读写（判断是否非空），一个代表是底下这个代码段:</p>
+<pre><code class="language-java">private int getNearestRequest() {
+    synchronized (waitintList) {
+        if (waitintList.isEmpty()) {
+            return -1;
+        }
+        for (Person person : waitintList) {
+            /*iterate and process */
+        }
+    }
+    return res;
+}
+</code></pre>
+<h3 id="第三次作业">第三次作业</h3>
+<p>第三次作业相比第二次只是针对每种电梯增加了各自的等待队列，只需将第二次中锁住的共同的waitintList改成锁住待自己、调度器修改/读取的waitintList即可。</p>
+<h1 id="调度器设计">调度器设计</h1>
+<h2 id="第一、二次作业">第一、二次作业</h2>
+<p>单个电梯采用了三种模式分别调度的方式：</p>
+<ul>
+<li>night：从最高层开始接人，顺次向下运输</li>
+<li>morning：第五次为按进入顺序接人（导致4个morning模式的点性能爆炸），第六次为到达楼层由低到高，凑够一梯的人或者输入结束再出发。</li>
+<li>random：采用普普通通的look算法，在此就不赘述。</li>
+</ul>
+<p>此外还包括一些小的优化：</p>
+<ul>
+<li>记录上次开门/移动时间，减少调度影响的运行时间</li>
+<li>进行一些初等预判操作，比如开门，回归1层等。</li>
+<li>先下后上。</li>
+</ul>
+<p>单个电梯的调度器在我的设计中是 ElevatorRunner 线程，负责运行一个电梯，分配器线程负责给它提供输入，它与内部的电梯类交换信息，并操作电梯运行。</p>
+<p>而在输入和电梯之间的调度器（分配器）非常假，由于我的电梯在第二次中采用的是自由竞争的策略，因此没有它什么事了，输入线程给它提供请求，它直接塞到等待队列里供电梯线程抢人。</p>
+<h3 id="第三次作业-1">第三次作业</h3>
+<p>单台电梯中由于需要换乘，morning和night模式下输入中的单向性被破坏，我索性都按random模式进行调度，具体算法同前两次。</p>
+<p>多个电梯的调度器中我进行了分配的初次尝试（事实证明性能非常差），为三种电梯建立了三个等待队列，如果一个人可以被电梯直接运输，那就塞入对应的等待队列。不然的话则会按照一定的逻辑进行换乘。在第三次作业中，输入线程向它输入请求，调度器进行处理（可能会分解为换乘请求）后分给待定的等待队列供电梯线程进行处理。在乘客到达楼层后，电梯线程会把人重新提交给调度器，如果他还没有到达目的地就会被重新安排到某个等待队列中，如果已经达到了目的地就系统中的剩余人数减一。</p>
+<h2 id="架构设计分析">架构设计分析</h2>
+<h3 id="uml图">UML图</h3>
+<p>三次作业的类的架构完全一致(第三次添加了Person类作为PersonRequest的封装)，总的UML图如下图所示<img src="https://img2020.cnblogs.com/blog/2323893/202104/2323893-20210427092256145-1815384040.png" alt="" loading="lazy"></p>
+<h3 id="时序图">时序图</h3>
+<p>前两次的时序图<img src="https://img2020.cnblogs.com/blog/2323893/202104/2323893-20210427092314003-1839066376.png" alt="" loading="lazy"></p>
+<p>第三次的时序图<br>
+<img src="https://img2020.cnblogs.com/blog/2323893/202104/2323893-20210427092356449-788921741.png" alt="" loading="lazy"></p>
+<p>整个架构采用生产者-消费者模式。各线程在第一次中由main函数启动，后两次作业都由 InputHandler 启动。其中 InputHandler 和 Dispatcher作为生产者，从标准输入中接受乘客请求和电梯请求，放进托盘(waitintList)中，其中在第三次中我的 Dispatcher还会对请求做二次加工，计算是否需要换乘和应该进入哪个等待队列。  ElevatorRunner  类作为消费者负责处理请求，使用look或者自己设计的策略进行调度，与电梯交互电梯信息和发出操作请求，比如上楼下楼进出人。第三次中会把到达的人重新submit给调度器，调度器会将可能存在的请求下半段重新送入队列中。在线程结束部分，三次的逻辑都如出一辙，输入结束信号量从 InputHandler 逐级下发，当各级满足自己的退出条件后退出，同时唤醒子线程检查装态。</p>
+<h3 id="设计平衡">设计平衡</h3>
+<p>整个架构设计有些问题，具体看总结思考部分。针对第三次作业而言，由于我没有做特别多的优化，所以并没有破坏前两次的整体设计。基本上符合了<strong>开闭原则</strong>，即几乎没有修改 ElevatorRunner 类内容。如我在第三次中用Person封装了 PersonRequest，重写其getTofloor，在人没有到达目的地的时候返回换乘楼层号，使得  ElevatorRunner  无感知的同前两次一样处理换乘请求。功能设计上如果按照总结思考部分稍微重构我觉得可拓展性较强，和下一点相比，大部分电梯的运行不外乎那几种基本操作（上下进出），可以有一个通用架构来描述。但是在性能设计中我的设计还有待提高，目前我的换乘策略是用大量的<code>if-else</code>结构写出来的（<s>基于专家系统的电梯调度</s>)，这明显是一个打算用一次就丢的方法，与本次电梯中的输入数据要求有比较强的耦合。但在实际的商用场合中，输入分布、换乘代价、电梯分布/性能、楼宇特点，都需要纳入电梯算法的考量。做一个不恰当的类比，Linux内核中有70%的代码都是设备相关的驱动代码。在一个好的电梯调度算法中，必然有依赖于实际情况的逻辑，而当算法越泛化，需要考虑的情况就越来越多。我们可以思考是否真的有必要和能够（我相信单纯的<code>if-else</code>或者最短路或者抢人都是无力的）使用一种性能设计来拓展应对现实中千奇百怪的要求。</p>
+<h2 id="bug分析">bug分析</h2>
+<p>在最终的公测和强测中，我都没有出现bug。</p>
+<p>在课下的测试和自测中，主要困扰我的有两个bug。</p>
+<ul>
+<li>一个个性的bug，第二次作业中我本地测试跑的很欢乐，交到评测机上去总有几个点CTLE，ac的点时间也长达数秒。CELE问题自然首先考虑轮询，仔细检查后我发现我并没有无限循环结构。在肉眼判断无果后，我开始使用了JProfiler记录cpu使用时间和线程运行情况，并没有发现线程安全问题，却发现在调用sort函数时产生不少开销。我注意到我的电梯中用Arraylist存储请求，每到一层都得sort一遍决定要送的最近的/ 最远的请求。为了优化这一性能的热点，我选用了TreeMap进行请求维护，按请求的到达楼层进行排序，方便找到最远的请求。</li>
+<li>一个共性的bug：线程无法死亡。在自我debug中，我无数的时间用来和RTLE的电梯做斗争。RTLE的主要原因是存在线程没有成功终止，具体有以下两条：
+<ul>
+<li>信号量传递有误，比如在前两次作业中，在传递输入线程结束信号后并没有唤醒电梯运行线程，或电梯正在运行中notify无效，之后在循环中长眠。一个正确的流程应该是，父线程改变信号量-&gt;通知子线程，子线程循环-&gt;wait前判断信号量，醒来后处理信号量变化。</li>
+<li>面向过程语言/单线程带来的思维定势。如果上面一条if语句的条件没有满足，则在下一句中成立该条件的否定。实际上，在多线程作业中如果没有到处加锁，就要考虑是否会有条件变量在紧邻的两条if语句中变化。比如在编写下述代码时，经常默认assert一句成立，但在多线程的情况下，这一前无法得到保证，想要解决这个问题，要思考清楚是不是要加锁。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">if(end){
+	/*do something*/
+}
+assert(end==false);//is it the case?
+if(condition){
+	/*do something*/
+}
+</code></pre>
+<p>我在交上去的版本中有几个性能bug，导致第一第二次有部分点几乎没有性能分。</p>
+<ul>
+<li>第一次作业中我选择按乘客来的顺序接人，这样会导致电梯送人的目的地不集中，可能要多次做长距离移动。因此在 morning 模式下性能很差，这是一个与多线程无关的逻辑问题。</li>
+<li>第二次中我的 morning 模式在人不满6人时选择通过while+wait的方式进行等待，可是最离谱的是在电梯线程被 notify 进行唤醒后我没有进行 break，电梯对请求直接熟视无睹睡下去了，直到输入结束了破坏了循环条件才结束循环开始送人，morning 模式又一次性能大爆炸。</li>
+</ul>
+<h2 id="hack分析">hack分析</h2>
+<p>主要的评测策略就是采用大量跑点+多线程并发的方式(<s>简称大力出奇迹</s>)，同时数据点的话会涉及同时来大量请求，尽可能提高线程不安全问题发生的改率，总的结果还比较有效，除了一个死活刀不上的点，其他的bug都发现了。</p>
+<p>和第一单元相比，本单元的测试并不是cpu密集型作业，为了提高评测效率需要进行多路并发测试。同时如单次ac的话也无法保证第二次正确，需要多次测试确保万无一失。另外并不存在现成的输入和输出解析方案，需要自己实现（<a href="https://www.cnblogs.com/Chenrt/p/14691913.html" target="_blank"><s>借用大佬的评测机</s></a>）。</p>
+<h2 id="心得体会">心得体会</h2>
+<h3 id="线程安全">线程安全</h3>
+<p>最大的体会是要告别单线程中的思维定势，要知道甚至<code>i++</code>这句话都不是原子的（我看不懂，但我大为震撼）。为了确定程序上下文数据语义一致性，避免被线程调度破环，在维护线程安全时要关注其中操作的变/对象类型，如果是共享变量，则需要加锁。当然在加锁时也不能无脑加锁，虽然在本次作业中好像怎么锁也不会有性能问题，但是如果动不动就用 synchronized方法锁住整个对象，程序的吞吐量自然会在线程 blocking 状态中被白白消耗，所以在理想的情况下，尽进行细粒度的锁。</p>
+<p>此外在本次代码中都是到处使用 synchronized 给共享对象加锁的方法，在很多地方都要锁住 waitintList，看似可以做细粒度的控制，但由于疏忽等原因往往会带来bug，还打散了代码本身的逻辑结构。一个合适的实现应当是使用老师课上提到的线程安全类，各方法向其中读/写内容，在线程安全类内部自己维护一套锁的实现，具体锁的类型（读写锁还是互斥锁等）对外界屏蔽，只要请求线程安全类就好了。另外java里有 BlockingQueue 数据结构已经帮助我们实现了部分功能，也可以选择不去自己手搓轮子，选用可靠的库实现。</p>
+<h3 id="层次设计">层次设计</h3>
+<p>这次我的层次设计没有做的很好，关注点可能都到了多线程上，可以看到我的UML类图非常简单，没有层次设计。我觉得本次作业中最适合层次设计的就是调度器方面。在我的实现中，我的  ElevatorRunner  类中既有线程逻辑，又有三个到达模式的调度逻辑，甚至还有操作电梯的种种操作函数。我觉得一个合适的层次设计是建立策略的抽象（输入waitintList，输出调度方法），然后在具体的类中实现自己的逻辑策略，同时关于电梯的种种操作也应该剥离为一个单独的类被多个策略类共享。这样的切片可以确保符合<strong>单一责任原则</strong>，每个类各只负责自己的一小部分，也方便对不同的模块做删改。</p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2021-04-27 09:25</span>&nbsp;
+<a href="https://www.cnblogs.com/gswxp2/">goodgame</a>&nbsp;
+阅读(<span id="post_view_count">3</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=14707507" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(14707507);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 674673, cb_blogApp = 'gswxp2', cb_blogUserGuid = 'bea38ed0-ea00-46a6-9b7e-08d8d71b5727';
+    var cb_entryId = 14707507, cb_entryCreatedDate = '2021-04-27 09:25', cb_postType = 1;
+    updatePostStats(
+        [cb_entryId],
+        function(id, count) { $("#post_view_count").text(count) },
+        function(id, count) { $("#post_comment_count").text(count) })
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="under-post-card">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_card1"></div>
+    <div id="cnblogs_c2" class="under-post-card">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_card2"></div>
+    <div id="HistoryToday" class="under-post-card"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_c3"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2021 goodgame
+<br /><span id="poweredby">Powered by .NET 5.0 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+
+    <input type="hidden" id="antiforgery_token" value="CfDJ8L-rpLgFVEJMgssCVvNUAju7gbKPbZj_8ALc2Fx-N6MtFDmKFt66sEKXD4s0IKbTSbyTp3pWJ209LYrw2Nmgv7QHnW3phQ8kz6OKF_0mRBf_Ymz7TjTxigsCrasTMwX0dpFTGJXKzFPPQs0TiHMEhaY" />
+</body>
+</html>

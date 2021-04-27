@@ -1,0 +1,755 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta name="description" content="Vuex 是不是有点繁琐？ Vuex 是针对 Vue2 来设计的，因为 option API 本身有很多缺点，所以 Vuex 只好做各种补丁弥补这些缺点，于是变得比较“复杂”。 现在 Vue3 推出了" />
+    <meta property="og:description" content="Vuex 是不是有点繁琐？ Vuex 是针对 Vue2 来设计的，因为 option API 本身有很多缺点，所以 Vuex 只好做各种补丁弥补这些缺点，于是变得比较“复杂”。 现在 Vue3 推出了" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>制作一个轻量级的状态管理插件：Vue-data-state - 金色海洋（jyk） - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=zS6-e1bxywlu3kpHvpr1J6MySwya3ztFtEnS7RYQ0Fk" />
+    <link id="MainCss" rel="stylesheet" href="/skins/minyx2_lite/bundle-minyx2_lite.min.css?v=F-kpmc_yPJF8Dd7d6eY5Dqj_SeF3hi4z94QnNXriWxc" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/jyk/custom.css?v=ffu0LwHtWeyAYBXr7ozNSw8btj0=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/minyx2_lite/bundle-minyx2_lite-mobile.min.css?v=iPf_XHQsJ-ofZZ2RiaeMCHG0JEaMNLa9yhkUGK3xTSQ" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/jyk/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/jyk/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/jyk/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 20707;
+        var currentBlogApp = 'jyk';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Minyx2_Lite';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2021-04-26 06:49';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=CJtNAb53Ex2fBes_h70ZUTUv5aZTxcvvM7mCnA44svE"></script>
+    
+    
+    <script src="/skins/minyx2_lite/bundle-minyx2_lite.min.js?v=z_XLIOc5JYwRKqTPu9fAWp7D8tchhGxVWGYvlAiigUQ" type="text/javascript" language="javascript"></script>
+</head>
+<body class="no-navbar">
+    <a name="top"></a>
+    <div id="top_nav" class="navbar forpc navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding"><a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a></li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔">
+                        <img id="new_post_icon" class="navbar-icon" src="/images/aggsite/newpost.svg" alt="写随笔" />
+                    </a>
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=J0WS2P2iPgaIVgXxcAhliw4AFZIpaTWxtdoNAv9eiCA" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <img id="navbar_lite_mode_on" src="/images/lite-mode-check.svg" class="hide" /><span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+                            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="page_begin_html">
+        <script language="javascript" type="text/javascript" src="https://files.cnblogs.com/jyk/jQuery.drag.js" defer></script>
+<script language="javascript" type="text/javascript" src="https://files.cnblogs.com/jyk/jQuery.command.js" defer></script>
+<script type="text/javascript" language="javascript">
+window.onload=function(){
+ //统计，默认
+            $("#rightmenu ul").eq(1).drag();
+            //公告，拖拽标题
+            $("#blog-news").drag({ titleBar: $("#profile_block a").eq(0) });
+            //随笔分类，单击拖拽
+            $("#blog-sidecolumn ul").eq(0).drag({
+                dragType: "click"
+            });
+
+            //导航，垂直拖拽
+            $("#rightmenu h3").eq(0).drag({
+                lockXy: "x",
+                isDragTmpDiv: false
+            });
+
+            //评论 1 拖拽自己
+            $("#RecentCommentsBlock ul li").drag();
+
+}
+</script>
+<style type="text/css">
+#sideBar h3{margin:16px;font-size:16px;text-align:left;font-weight:bold;color:#000;}
+#sideBar a{text-decoration:none;color:#000;}
+p{font:12pt;LINE-HEIGHT: 150%;}
+span{font:11pt;LINE-HEIGHT: 150%;}
+table
+{
+	padding:3px;
+	border:1px;
+	border-width:1px;
+	border-color:#C8E1FB;
+	width:70%;
+	border-collapse:collapse;
+}
+
+th
+{
+	background-color: #F2F9FF;
+	color:#014F8A;
+	font-size: 10pt;
+	padding:3px;
+	background-image:url(/images/cnblogs_com/jyk/img/th1.jpg);
+}
+td   
+{
+	font-size: 10pt;
+	padding:3px;
+}
+</style>
+    </div>
+    
+<div id="container">
+    <a class="minyx" href="https://www.cnblogs.com/">代码改变世界</a>
+    <ul id="topMnu">
+        <!-- 统计数据 -->
+        <li>
+            <div id="blog_stats_place_holder"><script>loadBlogStats();</script></div>
+        </li>
+        <!-- 这边可以增加一些链接 -->
+        <!-- 博客园 -->
+        <li><a href="https://www.cnblogs.com/">Cnblogs</a></li>
+        <!-- 管理 -->
+        <li id="topMnu-dashboard">
+            <a id="lnkDashboard" href="https://i.cnblogs.com/">Dashboard</a>
+        </li>
+        <li>
+            
+    <a id="lnkLogin" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/jyk/">Login</a>
+
+
+        </li>
+    </ul>
+
+    <script type="text/javascript">
+        var m = window.__blog.topMenuRendered;
+        if (m) { m(__$("topMnu")); }
+    </script>
+
+    <div id="header">
+        <ul id="menu">
+            <!-- 首页，当前section加上current类 -->
+            <li id="menu-home" class="current">
+                <a id="lnkHome" href="https://www.cnblogs.com/jyk/">Home</a></li>
+            <!-- 联系 -->
+            <li id="menu-contact">
+                <a id="lnkContact" href="https://msg.cnblogs.com/send/%E9%87%91%E8%89%B2%E6%B5%B7%E6%B4%8B%EF%BC%88jyk%EF%BC%89">Contact</a></li>
+            <!-- 相册 -->
+            <li id="menu-gallary">
+                <a id="lnkGallery" href="https://www.cnblogs.com/jyk/gallery.html">Gallery</a></li>
+            <!-- 订阅 -->
+            <li id="menu-subscribe">
+                <a id="blog_nav_rss" href="javascript:void(0);" data-rss="https://www.cnblogs.com/jyk/rss/">Subscribe</a></li>
+            <!-- Rss订阅 -->
+            <li id="rss">
+                <a id="lnkRss" href="https://www.cnblogs.com/jyk/rss/">RSS</a></li>
+        </ul>
+        <div id="newmsg"></div>
+        <h1>
+            <!-- 主标题 -->
+            <a id="lnkBlogTitle" href="https://www.cnblogs.com/jyk/">金色海洋工作室</a>
+            <!-- 子标题 -->
+            <small>
+                ——自然框架，自然而然，快速开发、快速修改！
+            </small>
+        </h1>
+    </div>
+
+    <script type="text/javascript">
+        var m = window.__blog.headerRendered;
+        if (m) { m(__$("header")); }
+    </script>
+
+    <div id="wrapper">
+        <div id="content">
+            <script type="text/javascript">
+                var m = window.__blog.preRenderPosts;
+                if (m) { m(); }
+            </script>
+            <div id="post_detail">
+<div class="post" id="post">
+    <a name="top"></a>
+    <h2>
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/jyk/p/14706005.html">
+    <span>制作一个轻量级的状态管理插件：Vue-data-state</span>
+    
+
+
+
+</a>
+</h2>
+    <small>
+<span id="post-date">2021-04-26 18:49</span>&nbsp;
+<a href="https://www.cnblogs.com/jyk/">金色海洋（jyk）</a>&nbsp;
+阅读(<span id="post_view_count">120</span>)&nbsp;
+评论(<span id="post_comment_count">1</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=14706005" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(14706005);return false;">收藏</a></small>
+    <div class="entry">
+        <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+<h1 id="vuex-是不是有点繁琐？">Vuex 是不是有点繁琐？</h1>
+<p>Vuex 是针对 Vue2 来设计的，因为 option API 本身有很多缺点，所以 Vuex 只好做各种补丁弥补这些缺点，于是变得比较“复杂”。</p>
+<p>现在 Vue3 推出了Composition API，功能更强大也弥补了之前的缺点，但是 Vuex 4.0 只是兼容了 Vue3，使用风格上似乎没啥变化。</p>
+<p>于是乎怎么看怎么别扭，不是说 Vuex 不够强大，Vuex 的 state 也使用了 reactive ，而且也是用 provide/inject 实现注入的，但是没有后续了，Composition API 的其他特性呢？感觉好浪费呀。</p>
+<p>虽然也可以基于 Vuex 用 compositionAPI 的方式实现功能，但是总感觉有点大炮打蚊子的感觉。</p>
+<h1 id="做一个轻量级状态管理。">做一个轻量级状态管理。</h1>
+<p>按照“自己动手丰衣足食”的原则，我们自己来做一个轻量级的状态管理。</p>
+<p>模仿 Vuex 试着实现了一下基本功能，有点理解为啥 Vuex 弄得那么绕了，因为要把操作函数也给包含进去确实有点难度。<br>
+那么就轻量到底吧，只包含状态，不包括 mutations、action 这些操作函数。</p>
+<p>于是功能变成这个样子：<br>
+<img src="https://upload-images.jianshu.io/upload_images/25078225-e70a3bcebd976e4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vue-data-state功能设计.png" loading="lazy"></p>
+<p>状态：全局状态、局部状态<br>
+功能：初始化状态、指定的组件里注入局部状态、子组件里加载局部状态</p>
+<p>缓存功能，就是可以把状态存入localstorage里面保存，以及初始化的时候从localstorage里面加载状态。<br>
+缓存功能暂时没有实现，还没想好局部状态的缓存方案。</p>
+<p>功能简单，写起来也就容易多了，然后顺便做成插件的形式，便于使用。</p>
+<pre><code class="language-js">// 模仿Vuex写一个简单的数据、状态、缓存管理
+
+import { reactive, provide, inject } from 'vue'   
+
+export default {
+  // 状态容器
+  store: {
+    state: {}, // 全局状态
+    init: () =&gt; {}, // 初始化全局状态
+    reg: {}, // 注册局部状态
+    get: {} // 获取局部状态
+  },
+
+  // 用 symbol 做个标识，避免重名
+  storeFlag: Symbol('VuexDataState'),
+
+  // 创建安装插件的实例
+  createStore(info) {
+    /* info 的结构示例
+    const _info = {
+      // 全局状态，在main.js里面注入
+      global: {
+        blogState: { // 每个状态都必须是对象，不支持基础类型
+          aaa: '状态演示'
+        }
+      },
+      // 局部状态，需要手动注入
+      local: {
+        dataList() {
+          return {}
+        }
+      },
+      // 初始化函数，可以从后端、前端等获取数据加入状态
+      // 注入后被动调用，仅限于全局状态
+      init(state) {}
+    }
+    */
+
+    for (const key in info.global) {
+      // 把全局状态存入state
+      this.store.state[key] = reactive(info.global[key])
+    }
+    
+    for (const key in info.local) {
+      const localKey = Symbol(key)
+      // 加上注册函数
+      this.store.reg[key] = () =&gt; {
+        // 把局部状态变成 reactive 的形式
+        const state = reactive(info.local[key]())
+        // 注入
+        provide(localKey, state)
+        // 返回状态，
+        return state
+      }
+      this.store.get[key] = () =&gt; {
+        // 把局部状态变成 reactive 的形式
+        const state = inject(localKey)
+        // 返回状态， 
+        return state
+      }
+    }
+
+    // 加上初始化函数
+    if (typeof info.init === 'function') {
+      this.store.init = info.init
+    }
+    
+    const _store = this.store
+    const _storeFlag = this.storeFlag
+    return {
+      // 安装插件
+      install (app, options) {
+        // console.log('install--我的状态', _store)
+        // 注入状态，用 symbol 作为标记，避免重名，避免外部直接用 inject 获取
+        app.provide(_storeFlag, _store)
+        // 设置模板使用状态
+        app.config.globalProperties.$state = _store.state
+        // 调用初始化，给全局状态赋值
+        _store.init(_store.state)
+      }
+    }
+  },
+
+  // 代码里面调用
+  useStore() {
+    // 获取全局状态
+    const { state, reg, get } = inject(this.storeFlag)
+
+    return {
+      state, // 返回全局状态
+      reg, // 注册局部状态的函数，并且返回对应的局部状态
+      get // 子组件里面获取状态
+    }
+  }
+}
+</code></pre>
+<p>怎么样，够轻吧，不超过一百行代码，如果去掉注释空行的话，大概也就三十多行吧。</p>
+<ul>
+<li>
+<p>reactive, provide, inject<br>
+状态要实现响应性，那当然要做成 reactive 形式的。<br>
+provide、inject 实现注入功能。</p>
+</li>
+<li>
+<p>store<br>
+内部状态容器。<br>
+state：状态<br>
+init：全局状态的初始化的函数<br>
+reg：局部状态的注入函数<br>
+get：获取局部状态的函数</p>
+</li>
+<li>
+<p>storeFlag<br>
+用 symbol 做全局状态的标记，避免重名。是不是有一种高大上的感觉？[狗头]</p>
+</li>
+<li>
+<p>useStore<br>
+是不是眼熟，在代码里面获取全局状态的。<br>
+除了返回全局状态外，还可以返回局部状态的注入函数和获取函数。<br>
+因为使用 symbol 作为key，外部无法获取，所以需要内部提供一个函数。（我不会告诉你我是故意的）</p>
+</li>
+</ul>
+<p>如果想把状态变成只读（readonlyReactive）的形式然后在返回，那么可以在这里操作。</p>
+<ul>
+<li>组件里的使用方法</li>
+</ul>
+<pre><code class="language-js">import VueDS from 'vue-data-state' 
+
+const { state, reg, get } = VueDS.useStore()
+
+state // 全局状态
+
+// 父组件注入状态，并且返回局部状态，以便父组件使用
+const 局部状态 = reg.局部状态名称()
+
+// 子组件获取局部状态
+const 局部状态 = get.局部状态名称()
+
+</code></pre>
+<ul>
+<li>
+<p>createStore<br>
+看着是不是眼熟，功能和 Vuex 的 createStore 是一样的，接收参数创建 store 然后通过插件注入到 vue 的app上面。<br>
+函数返回 install，用于安装插件。</p>
+</li>
+<li>
+<p>_info<br>
+这个没啥用，就是介绍一下参数的属性格式，实现代码的时候看着方便。另外去掉注释就可以做测试用。</p>
+</li>
+<li>
+<p>第一个for<br>
+遍历全局状态，变成 reactive 挂到 store 里面。</p>
+</li>
+<li>
+<p>第二个 for<br>
+遍历局部状态，变成注入和获取的函数，挂到 reg 和 get 里面。<br>
+这个 provide 的 key 也采用 symbol 的形式，避免重名。</p>
+</li>
+<li>
+<p>init<br>
+把初始化函数挂上。</p>
+</li>
+<li>
+<p>install<br>
+安装插件，按照 Vue 官网示例，写了这个install。<br>
+对了，我只是把全局状态挂到模板上面了，局部状态没有挂呢。<br>
+局部状态似乎挂不上，还需要再考虑考虑。</p>
+</li>
+</ul>
+<h1 id="先安装资源包">先安装资源包</h1>
+<pre><code>yarn add vue-data-state 
+</code></pre>
+<h1 id="定义状态">定义状态</h1>
+<pre><code class="language-js">// /store-ds/index.js
+import VuexDataState from 'vue-data-state'
+
+export default VuexDataState.createStore({
+  global: { // 全局状态
+    userInfo: {
+      name:'当前登录人'
+    }
+  },
+  local: { // 局部状态
+    // 数据列表，使用前需要先注册
+    dataListState() { // 显示博文列表用的状态
+      return {
+        findKind: {}, // 查询方式
+        find: {}, // 查询关键字
+        page: { // 分页参数
+          pageTotal: 100,
+          pageSize: 2,
+          pageIndex: 1,
+          orderBy: { id: false }
+        },
+        _query: {}, // 缓存的查询条件
+        isReload: false // 重新加载数据，需要统计总数
+      }
+    }
+  },
+  // 可以给全局状态设置初始状态，可以是异步操作
+  init(state) {
+    setTimeout(() =&gt; {
+      state.blogState.name = 'int里面设置的数据，可以异步'
+    },3000)
+  }
+}) 
+</code></pre>
+<ul>
+<li>
+<p>global<br>
+全局状态，每一个状态都必须是对象（包含数组）的形式，不能是基础类型。<br>
+全局状态，会默认注入到根 app 里面。<br>
+状态名称、属性名称可以随意，这里只是举个例子。</p>
+</li>
+<li>
+<p>local<br>
+局部状态，每个状态也必须是对象形式，不会默认注入，需要在父组件里面使用 reg 调用函数才能注入。<br>
+需要使用 return 的形式，原理和 data 一样。Vuex 模块里的 state 也是需要用 return 形式的。<br>
+状态名称、属性名称可以随意，这里只是举个例子。</p>
+</li>
+<li>
+<p>init<br>
+初始化全局状态的函数，可以不设置。<br>
+在main.js里面安装插件时，注入全局状态后 init会被调用，这时候可以给全局状态赋值，支持异步操作。</p>
+</li>
+</ul>
+<h1 id="在mainjs-里面使用">在main.js 里面使用</h1>
+<p>这个就和 Vuex 一样了：<br>
+main.js</p>
+<pre><code class="language-js">import { createApp } from 'vue'
+import store from './store-ds' // 轻量级状态
+
+createApp(App)
+  .use(store) // 轻量级状态
+
+</code></pre>
+<p>后续会在个人博客里面试用一下，具体使用的时候，才会发现有没有问题，以及如何改进。</p>
+<h1 id="faq">FAQ</h1>
+<ul>
+<li>
+<p>传说中的跟踪呢？<br>
+关于跟踪的问题，一直理解的不深刻，因为dev-tool总是安装不上，后来好不容易安装上了，却不工作。所以暂时跳过这个功能。</p>
+</li>
+<li>
+<p>Vuex支持插件，你的这个呢？<br>
+这个说起来有点复杂，简单的说，目前还没有这样的需求，所以就先跳过了，以后需要的话，可以再加嘛。<br>
+要做插件的话也简单，用 watch 对状态做深度监听，然后调用插件钩子就行。<br>
+要不然我为啥要把状态拆开做reactive呢？</p>
+</li>
+<li>
+<p>不是说不让直接修改状态吗？<br>
+关于这一点也是比较复杂。<br>
+我可以把状态做成只读的，readonlyReactive一下就行，然后再设计 类似 mutations 的方法 来修改状态。<br>
+但是这么做的意义到底是什么呢？<br>
+没有实现跟踪功能，也没用插件，也不知道怎么弄到dev-tool里面去。<br>
+这些都是配套工程，如果没有这些配套工程，只是做一个只读的话，总是感觉怪怪的。</p>
+</li>
+<li>
+<p>为啥要弄个局部状态？<br>
+这个要从一次讨论说起。<br>
+某天和知乎大神聊天，他说要做一个模块内的共享状态，一开始我还不理解，讨论了半天，感觉大神说的确实在理。<br>
+于是慢慢开始尝试，最后发现确实挺香的。具体的会在后面的博客项目里面介绍。</p>
+</li>
+<li>
+<p>支持 option API吗？<br>
+一开始忘记这个事了，后来才想起来，因为是专门针对composition API来设计的，所以应该是不支持的吧。</p>
+</li>
+</ul>
+<h1 id="源码">源码</h1>
+<p><a href="https://gitee.com/naturefw/vue-data-state" target="_blank">https://gitee.com/naturefw/vue-data-state</a><br>
+<a href="https://gitee.com/naturefw/vue-data-state" target="_blank"><img src="https://gitee.com/naturefw/vue-data-state/widgets/widget_card.svg?colors=ffffff,1e252b,323d47,455059,d7deea,99a0ae" alt="自然框架/vue-data-state" loading="lazy"></a></p>
+<h1 id="在线演示">在线演示</h1>
+<p><a href="https://naturefw.gitee.io/vue-data-state/" target="_blank">https://naturefw.gitee.io/vue-data-state/</a></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+        <div class="clear"></div>
+        <div id="blog_post_info_block">
+        <div id="blog_post_info">
+        </div>
+        <div class="clear"></div>
+        <div id="post_next_prev"></div>
+    </div>
+</div>
+    <ul class="postmetadata">
+        
+<li class="icon_cat" id="BlogPostCategory">
+分类            <a href="https://www.cnblogs.com/jyk/category/1905841.html" target="_blank">Vue3</a>
+</li>
+<li class="icon_bullet" id="EntryTag">
+&nbsp;</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var m = window.__blog.postRendered;
+    if (m) { m(__$("post")); }
+</script>
+<script type="text/javascript">
+    var m = window.__blog.postRenderPosts;
+    if (m) { m(); }
+</script>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 20707, cb_blogApp = 'jyk', cb_blogUserGuid = '265d360b-63cf-dd11-9e4d-001cf0cd104b';
+    var cb_entryId = 14706005, cb_entryCreatedDate = '2021-04-26 18:49', cb_postType = 1;
+    updatePostStats(
+        [cb_entryId],
+        function(id, count) { $("#post_view_count").text(count) },
+        function(id, count) { $("#post_comment_count").text(count) })
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="under-post-card">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_card1"></div>
+    <div id="cnblogs_c2" class="under-post-card">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_card2"></div>
+    <div id="HistoryToday" class="under-post-card"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+
+</div>
+
+
+        </div>
+
+        <script type="text/javascript">
+            var m = window.__blog.contentRendered;
+            if (m) { m(__$("content")); }
+        </script>
+
+        <div id="sidebar">
+            <div id="about">
+                <div>
+                    <h2 id="about_title">About</h2>
+                    <div id="about_body">
+                        <div id="sidebar_news"></div>
+                        <script type="text/javascript">loadBlogNews();</script>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                var m = window.__blog.aboutRendered;
+                if (m) { m(__$("about")); }
+            </script>
+            <div id="mySearchWrapper">
+                <div id="mySearch">
+                    <input type="image" src="/skins/minyx2_lite/images/btnsearch.gif" id="btnZzk"  class="submit" onclick="zzk_go();return false;"/>
+                    <label class="lb_search"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="keyword" /></label>
+                </div>
+            </div>
+            <script type="text/javascript">
+                var m = window.__blog.searchFormRendered;
+                if (m) { m(__$("searchform")); }
+            </script>
+            <div id="sideMain">
+            </div>
+            <div id="sideRight">
+            </div>
+            <div id="sideLeft">
+            </div>            
+                <div id="sideContainer">
+                </div>
+                <script type="text/javascript">
+                    $.ajax({
+                        url: '/' + currentBlogApp + '/ajax/Minyx2_Lite_SideColumn.aspx',
+                        data: '{}',
+                        type: 'post',
+                        dataType: 'text',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data) {
+                                $("#sideContainer").html(data);
+                                $.ajax({
+                                    url: getAjaxBaseUrl() + 'TopLists.aspx',
+                                    type: 'get',
+                                    dataType: 'text',
+                                    success: function (topLists) {
+                                        if (topLists) {
+                                            $("#sideContainer").append(topLists);
+                                        }
+                                        var m = window.__blog.sideContainerRendered;
+                                        if (m) { m(__$("sideContainer")); }
+                                        window.__blog.sidebar.__layout();
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                </script>
+        </div>
+
+        <script type="text/javascript">
+            var m = window.__blog.sidebarRendered;
+            if (m) { m(__$("sidebar")); }
+        </script>
+
+        <div id="footer">
+            <p id="logoFoot">
+    <a href="http://www.spiga.com.mx/" title="Agencia Interactiva Spiga">www.spiga.com.mx</a>
+</p>
+<div class="footText">
+<p>
+Copyright &copy; 2021 金色海洋（jyk）
+<br /><span id="poweredby">Powered by .NET 5.0 on Kubernetes</span>
+
+</p>
+<p>
+<a href="http://www.cnblogs.com">博客园</a>
+</p>
+</div>
+
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var m = window.__blog.wrapperRendered;
+        if (m) { m(__$("wrapper")); }
+    </script>
+
+</div>
+<script type="text/javascript">
+    var m = window.__blog.containerRendered;
+    if (m) { m(__$("container")); }
+</script>
+
+
+    <div id="page_end_html">
+        <!--评论，生成气泡效果标签代码-->
+ 2 <script type="text/javascript" language="javascript"> 
+ 3     $(document).ready(function() {
+ 4         var commentTime = setInterval(function(){if($("#comments_pager_bottom").length>0){CommentBubble();clearTimeout(commentTime);}},50);
+ 5     }); 
+ 6     function CommentBubble()
+ 7     {
+ 8 var w1 = '<div class="list">' +
+ 9         '<table class="out" border="0" cellspacing="0" cellpadding="0"> ' +
+10             '<tr>' +
+11                 '<td class="icontd" align="right" valign="bottom">' +
+12                     '<img src="https://images.cnblogs.com/cnblogs_com/heyuquan/406488/t_op.png" width="70px" height="57px"/>' +
+13                 '</td>' +
+14                 '<td align="left" valign="bottom" class="q">' +
+15                     '<table border="0" cellpadding="0" cellspacing="0" style=""> ' +
+16                         '<tr><td class="topleft"></td><td class="top"></td><td class="topright"></td></tr> ' +
+17                         '<tr><td class="left"></td> <td align="left" class="conmts"><p>';
+18  
+19  
+20         var w2 = '</p> </td> <td class="right"></td></tr> ' +
+21                         '<tr><td class="bottomleft"></td><td class="bottom"></td><td class="bottomright"></td></tr> ' +
+22                     '</table>' +
+23                 '</td> ' +
+24             '</tr> ' +
+25         '</table> ' +
+26     '</div>';
+27  
+28         $.each($(".blog_comment_body"), function(i, t) {
+29             $(t).html(w1 + $(t).html() + w2);
+30         });
+31 $(".louzhu").closest(".feedbackItem").find(".out").removeClass("out").addClass("inc");
+32         /*.find(".q").attr("align","right");*/
+33         }
+34 </script>
+    </div>
+
+    <input type="hidden" id="antiforgery_token" value="CfDJ8L-rpLgFVEJMgssCVvNUAjvb_ZlhwAkWCk25t_pKZ3sKyW5xJySzZ0xaOh5E-nt40GPWK1EMagASMuE7EDOa7md_NLAeZcIkAkcOVqJtwKWilBPL9bcQBjBvwf3BfciX_9o-d_cnltgc0aa6Ge1iDw0" />
+</body>
+</html>

@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>最后一颗子弹留给我回答的问题_博问_博客园</title>
+    <meta name="keywords" content="博问,IT问答,IT知识问答,程序员问答,电脑技术问答,IT问题解答" />
+    <meta name="description" content="博问,程序员问答社区,解决你的IT难题。博问是一套IT知识互动式问答分享平台。用户可以根据自身的需求,有针对性地提出问题,同时这些答案又将作为搜索结果,满足有相同或类似问题的用户需求。" />
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <link href="//common.cnblogs.com/favicon.ico" rel="shortcut icon" />
+    <link href="/bundles/css/common.min.css?v=VCUcAopl0ebUDjguadoniKgsH0zvcFX-S885Dl8_E-c" rel="stylesheet" />
+    
+    <link href="/bundles/css/list.min.css?v=oRMkaU26_Z8uUHhQ-oxWuTQdD00B4Yksb1yrnF_GOzE" rel="stylesheet" />
+
+    <script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>
+    <script src="//common.cnblogs.com/script/json2.js" type="text/javascript"></script>
+    <script src="//common.cnblogs.com/script/paste-upload-image.js"></script>
+    <script src="/bundles/js/common.min.js?v=HBULZuTPG9BSN1NK1RvJiRzI-229YUDO1Q_OOD7gYO8" type="text/javascript"></script>
+    <script src="/bundles/js/external.min.js?v=Xdgnt0EXFMdk7OU8cv0i-1-xRjbA51fxvig7OjAjpek" type="text/javascript"></script>
+    <script src="/Component/layer/layer.js?v=TrPmEdEAvVlH00W9X4MnXdAvGlyEq4dQi3zu0iVNtVQ" type="text/javascript"></script>
+    
+    <script src="/bundles/js/forbidtohome.min.js?v=F-c_uPx1ssu-y-QAGlY9yoHQwaW3KCyzYBQiJFrxRXo" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).ready(function() {
+            $(".current_nav").attr("class", "");
+            $("#lasttopnav_li").attr("style", "display:unset;");
+            if ($(window).width() < 767) {
+                $("#lasttopnav").attr("class", "current_nav").html("个人主页").attr("href", "");
+            } else {
+                $("#lasttopnav").attr("class", "current_nav").html(DecodeHtml("最后一颗子弹留给我的博问主页"))
+                    .attr("href", "");
+            }
+            $(".current_tab").attr("class", "");
+            $("#second_nav ul li a[href='/u/berlinman/answered']").attr("class", "current_tab");
+            bindask();
+            loadSidebar();
+        });
+
+        function DecodeHtml(str) {
+            return $('<div/>').html(str).text();
+        }
+    </script>
+
+</head>
+<body>
+    <div id="hd_top" class="clearfix">
+        <div id="hd_top_w">
+            <a href="https://www.cnblogs.com">首页</a>
+            <a href="https://news.cnblogs.com/">新闻</a>
+            <a href="//zzk.cnblogs.com/">搜索</a>
+            <a href="//brands.cnblogs.com/">专区</a>
+            <a href="//academy.cnblogs.com/">学院</a>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo">
+                <a href="http://www.cnblogs.com"><img src="//common.cnblogs.com/images/logo/logo20170227.png" alt="logo" style="width:165px;height:55px;" /></a>
+            </div>
+            <div id="nav_block">
+                <a href="http://home.cnblogs.com/">园子</a> · <a href="http://home.cnblogs.com/followees/">关注</a> · <a href="http://home.cnblogs.com/followers/">粉丝</a> ·
+                <a href="http://home.cnblogs.com/feed/all/">随便看看</a> · <a href="http://space.cnblogs.com/msg/recent" target="_blank">消息<span id="msg_count"></span></a>
+            </div>
+            <div class="clear"></div>
+            <div id="header_user">
+                <div class="topbar-left-logo">
+                    <a href="http://www.cnblogs.com"><img class="logo" src="/Images/newsite/cnblogs.svg" alt="博客园"></a>
+                </div>
+                
+<h1 id="header_user_left">
+        欢迎，请先 <a href="javascript:void(0);" onclick="return login();">登录</a> 或者 <a href="javascript:void(0);" onclick="return register();">注册</a> 。
+</h1>
+<div id="header_user_right">
+        <a href="javascript:void(0);" onclick="return login();">登录</a> / <a href="javascript:void(0);" onclick="return register();">注册</a>
+</div>
+
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="container">
+
+            
+<div id="app_bar">
+    <p class="app_r_3"></p><p class="app_r_2"></p><p class="app_r_1"></p>
+    <div id="app_list_wrapper">
+        <ul class="app_list">
+                        <li>
+                    <img src="//common.cnblogs.com/images/ico_ing.gif" alt="" /><a href="https://ing.cnblogs.com/" id="app_ing">闪存</a>
+                        </li>
+                        <li>
+                    <img src="//common.cnblogs.com/images/ico_blog.gif" alt="" /><a href="https://home.cnblogs.com/blog/" id="app_blog">博客</a>
+                        </li>
+                        <li>
+                            <em><a href="https://group.cnblogs.com/newpost/">发言</a></em>
+                    <img src="//common.cnblogs.com/images/ico_group.gif" alt="" /><a href="https://group.cnblogs.com/" id="app_group">小组</a>
+                        </li>
+                        <li>
+                            <em><a href="https://news.cnblogs.com/n/publish">投递</a></em>
+                    <img src="//common.cnblogs.com/images/ico_news.gif" alt="" /><a href="https://home.cnblogs.com/news/" id="app_news">新闻</a>
+                        </li>
+                        <li class="current">
+                            <em><a href="/q/new">提问</a></em>
+                    <img src="//common.cnblogs.com/images/ico_question.gif" alt="" /><a href="/" id="app_List">博问</a>
+                        </li>
+                        <li>
+                            <em><a href="#" target="_blank" onclick="jutil.cnblogs.addToWz();return false;">添加</a></em>
+                    <img src="//common.cnblogs.com/images/ico_bookmark.gif" alt="" /><a href="https://wz.cnblogs.com/" id="app_wz">收藏</a>
+                        </li>
+                        <li>
+                            <em><a href="https://job.cnblogs.com/admin/">发布</a></em>
+                    <img src="//common.cnblogs.com/images/ico_job.gif" alt="" /><a href="https://home.cnblogs.com/job/" id="app_job">招聘</a>
+                        </li>
+                        <li>
+                    <img src="//common.cnblogs.com/images/ico_kb.gif" alt="" /><a href="https://home.cnblogs.com/kb/" id="app_kb">文库</a>
+                        </li>
+        </ul>
+        <div class="app_setting">
+            <a href="https://group.cnblogs.com/forum/public/" class="flag_edit" target="_blank">问题反馈</a>
+        </div>
+    </div>
+    <p class="app_r_1"></p><p class="app_r_2"></p><p class="app_r_3"></p>
+</div> 
+
+            <div id="container_content">
+
+                <div class="main_nav">
+                    <ul class="topic_nav_block">
+                        <li><a href="/">问题列表</a> </li>
+                        <li><a href="/list/MyStarQuestion">我关注的</a> </li>
+                        <li><a href="/list/myquestion">我的博问</a> </li>
+                        <li><a href="/tag/list">博问标签</a> </li>
+                        <li style="display:none;" id="lasttopnav_li"><a href="javascript:void(0);" id="lasttopnav"></a></li>
+                    </ul>
+                    <div class="clear">
+                    </div>
+                </div>
+
+                <div id="main">
+                    
+<style type="text/css">
+    @media (max-width: 767px) {
+        .main_nav ul li {
+            width: 20%;
+        }
+
+        #second_nav li {
+            padding: 0 15px;
+        }
+    }
+</style>
+
+<div class="container_content">
+    <div class="container_content_div">
+        <div id="second_nav" style="float: left;">
+            <ul>
+                <li id="first_nav">
+                    <a href="/u/berlinman/question" title="最后一颗子弹留给我提的问题列表">
+                        提问
+                    </a>
+                </li>
+                <li>
+                    <a href="/u/berlinman/answered" class="" title="所有最后一颗子弹留给我曾回答的问题">
+                        回答
+                    </a>
+                </li>
+                <li>
+                    <a href="/u/berlinman/bestanswer" class="" title="最后一颗子弹留给我的回答被采纳的问题">
+                        被采纳
+                    </a>
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+            <div class="clear">
+            </div>
+            <h2>
+                &nbsp;&nbsp;暂无数据，去其他页面看看吧！
+            </h2>
+    </div>
+    <div id="right_sidebar">
+        <div class="shadow">
+            <div>
+                <a href="//home.cnblogs.com/u/berlinman/" title="最后一颗子弹留给我的主页">
+                    <img src="//pic.cnblogs.com/avatar/1187461/20191024095659.png" alt="" />
+                </a>
+            </div>
+        </div>
+        <div class="sidebar_white">
+            <div class="my_rank">
+                最后一颗子弹留给我<br />
+                园豆:180<br />
+                <a href="/list/reputation" class="noblueline">声望:1</a>
+                    <br />排名:1500名之外<br />
+            </div>
+            <div class="clear">
+            </div>
+            <div class="right_content_wrapper2">
+                <a href="/q/new"><img id="img_ask" alt="提问" src="/Images/askqesbg.png" /></a>
+            </div>
+            <div class="right_content_wrapper2">
+                <h2>
+                    博问搜索
+                </h2>
+                <div class="ssearch" style="margin: 0px;">
+                    <input type="text" onkeydown="search_answer_enter(event);" class="search-question-box" name="souword" id="souword" />
+                    <input type="button" class="search-question-button" onclick="search_answer();return false;"
+                           name="btnSearch" />
+                </div>
+            </div>
+            <span id="right_hotcate"></span>
+            <span id="right_weekexpert"></span>
+            <div class="right_content_ad">
+                <img alt="" src="/Images/ad.gif" />
+            </div>
+            <div class="right_content_wrapper2">
+                <h2>
+                    关于博问
+                </h2>
+                <ul class="quick_link">
+                    <li>» <a href="/q/faq" target="_blank">博问帮助</a> </li>
+                    <li>
+                        » <a href="http://space.cnblogs.com/forum/ideas/newpost" target="_blank">发现问题</a>
+                    </li>
+                    <li>
+                        » <a href="http://space.cnblogs.com/forum/bugs/newpost" target="_blank">我有建议</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function search_answer() {
+        window.location = 'http://zzk.cnblogs.com/s?t=q&w=' + encodeURIComponent($("#souword").val());
+    }
+    function search_answer_enter(event) {
+        if (event.keyCode == 13) {
+            search_answer();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+
+                </div>
+
+                <div id="right_sidebar">
+                    
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="footer">
+            <a href="https://about.cnblogs.com">关于博客园</a><a href="https://about.cnblogs.com/contact">联系我们</a><a href="https://about.cnblogs.com/ad">广告合作</a><a href="https://beian.miit.gov.cn/" target="_blank">沪ICP备09004260号-1</a>©2004-2021<a href="http://www.cnblogs.com">博客园</a><span id="powered_by">Powered by .NET on Kubernetes</span><span id="profiler_footer"></span>
+        </div>
+    </div>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-476124-16"></script>
+    <script>
+        // 谷歌统计代码
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-476124-16');
+
+        // 百度统计代码
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?7b9c2a7556c09dc889faf454b28b736b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin-when-crossorigin" />
+    <meta name="description" content="北航oo第二单元总结 第一次作业 1.作业要求 本次作业要求实现单部ALS电梯，模拟电梯的上下行、开关门以及乘客的进出，可以采用任意的稍带策略。 2.实现方法 概述 建立了MainClass、Chan" />
+    <meta property="og:description" content="北航oo第二单元总结 第一次作业 1.作业要求 本次作业要求实现单部ALS电梯，模拟电梯的上下行、开关门以及乘客的进出，可以采用任意的稍带策略。 2.实现方法 概述 建立了MainClass、Chan" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>北航oo第二单元总结 - phm19231049 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=zS6-e1bxywlu3kpHvpr1J6MySwya3ztFtEnS7RYQ0Fk" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simpleblue/bundle-simpleblue.min.css?v=2hjghzSZyhYA1HxvSxKnXih3JbC120DBjeO9V9T_nSs" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/simpleblue/bundle-simpleblue-mobile.min.css?v=3tvwgOOqUo3RpS6gGzEdK0LbptOPv4Bx7M85_UAnFGs" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/phm19231049/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/phm19231049/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/phm19231049/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 674675;
+        var currentBlogApp = 'phm19231049';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleBlue';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2021-04-27 09:20';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=CJtNAb53Ex2fBes_h70ZUTUv5aZTxcvvM7mCnA44svE"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a>
+    <div id="top_nav" class="navbar forpc">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding"><a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a></li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔">
+                        <img id="new_post_icon" class="navbar-icon" src="/images/aggsite/newpost.svg" alt="写随笔" />
+                    </a>
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=J0WS2P2iPgaIVgXxcAhliw4AFZIpaTWxtdoNAv9eiCA" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <img id="navbar_lite_mode_on" src="/images/lite-mode-check.svg" class="hide" /><span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+                            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            <div class="title"><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/phm19231049/">phm19231049</a>
+</div>
+<div class="subtitle"></div>
+
+        </div>
+        <div id="navigator">
+            
+<ul id="navList">
+    <li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+    <li id="nav_myhome">
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/phm19231049/">
+首页</a>
+</li>
+    <li id="nav_newpost">
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+    <li id="nav_contact">
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/phm19231049">
+联系</a></li>
+    <li id="nav_rss">
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/phm19231049/rss/">
+订阅</a></li>
+    <li id="nav_admin">
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+            <div class="blogStats">
+                <div id="blog_stats_place_holder"><script>loadBlogStats();</script></div>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/phm19231049/p/14692163.html">
+    <span>北航oo第二单元总结</span>
+    
+
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+<h1 id="北航oo第二单元总结">北航oo第二单元总结</h1>
+<h2 id="第一次作业">第一次作业</h2>
+<h3 id="1作业要求">1.作业要求</h3>
+<p>本次作业要求实现单部ALS电梯，模拟电梯的上下行、开关门以及乘客的进出，可以采用任意的稍带策略。</p>
+<h3 id="2实现方法">2.实现方法</h3>
+<h4 id="概述">概述</h4>
+<p>建立了MainClass、Channel、Elevator1、Queue四个模块。MainClass用于创建输入进程和电梯进程。Channel为输入进程类，负责接收命令。Elevator1为电梯进程类，Queue为调度器，调度器通过分析等待队列和电梯内队列产生对电梯的指令，电梯接受来自调度器的指令向下一个目标楼层运行。</p>
+<h4 id="同步块与锁">同步块与锁</h4>
+<p>在Channel类中读取到一条指令后同步将此指令送入等待队列的代码块，因为输入线程只有一个，所以并不存在线程安全问题，这里主要是为了唤醒由于电梯线程没人且没指令时的等待。</p>
+<p>在Elevator类中，同步实现如果电梯中没有人且没有等待的指令，则将请求队列阻塞的代码块，与Channel中的唤醒相对应。同时，将除了Morning模式获得下一个楼层之外所有需要运行调度器的代码块都进行同步，以确保调度器分析过程中等待队列不会发生变化，Morning模式例外是因为在Morning模式调度器里需要等待指令输入，Queue需要发生变化。</p>
+<h4 id="调度器">调度器</h4>
+<p>我的调度器分为Morning、Night、Random三中模式。</p>
+<p>Morning模式为每隔两秒判定一次指令是否增加，如果增加就再等两秒，否则进入楼层分析部分。楼层分析部分第一次先无脑在一楼开一次，把一楼的乘客都装进去，此后遍历已经进入电梯的请求队列，先把下一请求设为第一个请求，不断找到位于当前楼层和下一请求之间的请求设为下一请求，最后返回得到的下一请求对应的楼层。</p>
+<p>Night模式如果满六人直接到一楼，否则遍历等待队列，规则与Morning模式相同。</p>
+<p>Random模式如果电梯内请求队列长度为零，则只遍历等待队列；如果电梯内人数为六人，则只遍历电梯内请求队列；此外的情况都先遍历等待队列再遍历电梯内请求队列。规则与Morning模式相同。</p>
+<p>第一次作业因为只有一部电梯，所以电梯线程与调度器只通过电梯内请求队列进行交互，即电梯线程将自己的inList传入调度器的调度函数中。输入线程将获得的输入传入Queue类中，同样在Queue类中的调度函数直接调用即可。</p>
+<h3 id="3程序bug">3.程序BUG</h3>
+<p>因为是第一次接触多线程，所以最简单的第一次作业反而产生了最多的BUG。</p>
+<p>首先是三种模式的轮询超时，最开始我三种运行模式设置的都是如果电梯里没有人且没有没有人在等待队列中则电梯调度器返回当前楼层，而我电梯的运行模式有一个只要还在本楼层且不是第一层就什么都不干直接开始下一次循环。而这就导致在这一层一直轮询导致CTLE，将这一段代码替换为上面提到过的wait-nodifyAll即可。</p>
+<p>其次是电梯停止条件的问题，最开始我电梯进程中是while(TRUE)无脑循环，根本不了解电梯需要停下来这件事，随后又改成了电梯内无人且无等待队列，我认为这个条件结合对等待队列的阻塞是可以代替输入结束这一条件的，但事实上我想多了，于是我在Channel类中加了一个end用于指示程序已结束并配备对应getEnd函数。</p>
+<p>最后是线程安全问题，刚开始写的时候根本不知道synchronized 究竟是啥，导致电梯线程通过调度器在用queue的时候输入线程一直在往queue里加，导致出错。于是我将除了Morning模式获得下一个楼层之外所有需要运行调度器的代码块都进行同步，解决。本次作业没有出现死锁问题。</p>
+<p>在强测中出现Morning模式RTLE的BUG，这个BUG是因为我的Morning模式是一直等的，如果一直在输入即使超过六个人也会等下去，改成达到六个人电梯即开始运行就通过了。</p>
+<h2 id="第二次作业">第二次作业</h2>
+<h3 id="1作业要求-1">1.作业要求</h3>
+<p>电梯的运行与第一次作业相同，只是改成了多部电梯并且增加了添加电梯的指令。</p>
+<h3 id="2实现方法-1">2.实现方法</h3>
+<h4 id="概述-1">概述</h4>
+<p>有了第一次作业的基础， 第二次作业相对简单。主要是对于Channel类的修改，一是增加了对电梯添加指令的处理，二是增加了指令分配代码块。此外本次作业为每部电梯配备了对应的等待队列，即Queues类，这个类中综合每个电梯的等待队列成为一个队列集合。为了保证集合元素与电梯的对应关系，我还为电梯设置了另一个序号inIndex，即这部电梯是第几个被建立的。</p>
+<h4 id="调度器-1">调度器</h4>
+<p>因为增加了多个电梯，我在Channel类中实现了一部分调度器的功能。这一部分同样分为Morning、 Night、Random三种模式。</p>
+<p>Morning模式在读到一条请求后从第一部电梯开始遍历等待队列集合，如果电梯等待队列中人数没有达到六，则直接将此请求放入其中，否则放入第一部电梯中。</p>
+<p>Night模式在读到一条请求后从第一部电梯开始遍历等待队列集合，找到等待人数最少的等待队列，将指令放入其中。</p>
+<p>Random模式与Night模式相同。</p>
+<h4 id="同步块与锁-1">同步块与锁</h4>
+<p>第二次作业新增的同步块主要位于Channel类中。首先，同步所有遍历等待队列集合的代码块，这里为等待队列集合加锁以确保在遍历过程中电梯进程不会对其进行操作。在遍历之后得到要添加请求的等待序列，将此序列加锁并同步将请求放入其中的代码块并唤醒此序列。其他与第一次作业相同。</p>
+<h3 id="3程序bug-1">3.程序BUG</h3>
+<p>有了第一次作业的前车之鉴，第二次作业的BUG少了很多。主要是如下两个：</p>
+<p>电梯进程出现了阻塞代码块没有被唤醒的情况，最初我是将唤醒代码写成和第一次作业一样，只是将queue改成了queues，但是发现这样不可行，电梯进程中被阻塞的是对该电梯对应的queue操作代码块而不是queues，这样写唤醒不了，于是改成了对单个queue的唤醒。此外还有一个问题就是输入进程结束后的唤醒，这个也不能无脑直接唤醒queues，而是要遍历queues依次唤醒。</p>
+<p>Random模式在强测第八个点被卡了极限时间，这个真的是没有改出来。</p>
+<h2 id="第三次作业">第三次作业</h2>
+<h3 id="1作业要求-2">1.作业要求</h3>
+<p>相比于第二次作业，再次增加了不同型号的电梯，不同型号的电梯具有不同的开关门速度、移动速度和限载人数。</p>
+<h3 id="2实现方法-2">2.实现方法</h3>
+<h4 id="概述-2">概述</h4>
+<p>首先是电梯运行部分，在第二次的基础上将电梯运行策略分为三个函数，对应三种不同的电梯。其次是调度器部分，也拆成三个函数，对应三种模式，并在每个函数中为每种电梯写单独的分配策略。</p>
+<h4 id="调度器-2">调度器</h4>
+<p>第三次作业我没有采用换乘策略，因此我并不需要担心电梯内请求队列会出现电梯无法到达的楼层的情况。我只需要将读到的请求进行分类，分别放到三种电梯里即可。具体如下：</p>
+<p>在Morning模式下如果输入请求要到达第三层或第十九层，则在等待队列集合中找到等待人数未达到最大载客量的第一部电梯将请求放入该电梯的等待队列中。如果输入请求要到达的层数是奇数且不为三或十九，则在等待队列集合中找到等待人数未达到最大载客量并且不为C型电梯的第一部电梯将请求放入该电梯的等待队列中。如果是其他情况，则放入等待队列集合中人数未达到最大载客量的第一部A型电梯。</p>
+<p>在Night模式下如果输入请求要到达第三层或第十九层，则在等待队列集合中找到等待人数最少的第一部电梯将请求放入该电梯的等待队列中。如果输入请求要到达的层数是奇数且不为三或十九，则在等待队列集合中找到等待人数最少并且不为C型电梯的第一部电梯将请求放入该电梯的等待队列中。如果是其他情况，则放入等待队列集合中人数最少的第一部A型电梯。</p>
+<p>Random模式与与Night模式相同。</p>
+<h4 id="同步块与锁-2">同步块与锁</h4>
+<p>第三次作业中的同步块与锁与第二次原理相同，只是在不同函数中的同类代码块均进行了同步加锁。</p>
+<h3 id="3程序bug-2">3.程序BUG</h3>
+<p>第三次作业只有一个小小的BUG，就是Random模式下存在没有被唤醒的情况，原因在于在输入刚好完成后可能会出现电梯中无人且该电梯等待队列无人的情况，此时电梯中的队列会被阻塞且无人来唤醒，导致Random电梯无法结束。</p>
+<h3 id="4可扩展性分析">4.可扩展性分析</h3>
+<h4 id="uml图">UML图</h4>
+<p><img src="https://img2020.cnblogs.com/blog/2337780/202104/2337780-20210423012735598-2045301428.png" width="40%"></p>
+<h4 id="uml协作图">UML协作图</h4>
+<p><img src="https://img2020.cnblogs.com/blog/2337780/202104/2337780-20210423012725164-1514202245.png" width="30%"><br>
+<img src="https://img2020.cnblogs.com/blog/2337780/202104/2337780-20210423012741838-1198712072.png" width="30%"><br>
+<img src="https://img2020.cnblogs.com/blog/2337780/202104/2337780-20210423013919762-263589790.png" width="30%"><br>
+第三次作业更多偏向了功能方面，在性能方面没有做过多考虑。从UML协作图中可以看出，无论是电梯线程还是输入线程，调用的都只是Queue和Queues，这就使得整个程序的架构非常简单易懂，可扩展性良好。调度器的两个部分被完全拆开，一部分放在Channel类中，实现输入请求到各个电梯的分配，另一部分放在Queue类中，实现电梯已输入请求的分配。因此一旦出现要更改运行策略，只需要改动在这两个类中的调度函数，其他的不受影响；一旦出现新的电梯类只需要在电梯类中加一种情况即可。这一点从UML图中也可以看出，各个类之间不存在复杂的循环调用，只有queue们在传递着各种信息。</p>
+<h2 id="规避死锁的方法">规避死锁的方法</h2>
+<p>在这三次作业中，我并没有出现死锁情况。在我看来，我之所以规避了死锁，是因为我将Morning模式等待两秒的部分放在了Queue类里而不是Channel类里，而在电梯进程中加锁的是queue，而不是channel，同时，在等待过程中使用的是半轮询的方式，就是硬等两秒看看等待队列增没增加。我的设计思路是电梯进程和输入进程之间没有双向的沟通，即电梯进程中不会对输入进程加锁，输入进程对于电梯进程的影响也仅在于一个nodifyAll，queue成为了两个进程沟通的媒介，因此不可能会出现死锁。</p>
+<h2 id="互测">互测</h2>
+<p>这一单元的评测机实在是写不出来啦。不过我还是通过阅读其他人的代码尝试写了一些数据，无奈整整三个单元一个点都没有hack出来。虽然结果很不理想，但我想说一说我hack的思路。第一步是找出代码中所有的锁分析相互之间的关系找死锁，这个都没有问题不然中测应该过不了。第二步是看我认为最有可能出错的Morning输入部分，看看存不存在输不进去或者是电梯运行不了的情况。第三步是向强测学习卡极限时间（尤其是Morning类）。相比于第一单元的无脑产生数据，这一次的互测需要真正仔细去分析其他人的代码，否则写数据完全无从下手。</p>
+<h2 id="心得体会">心得体会</h2>
+<p>本单元作业带给我最大的感触就是万事开头难。第一单元的作业极其痛苦，一开始不知道锁怎么用，不知道怎么获取输入，不知道官方包怎么用，不知道怎么模拟电梯运行，也不知道进程究竟是个啥。但是在看了整整一天的多线程教程，学长代码，官方包后，特别是在那一周周五的实验过后，一切都豁然开朗，之后的第二第三次作业也完成的很轻松。</p>
+<p>写多线程，一定要细心，写出一个大体框架之后一定要把代码之间的逻辑完完整整地梳理一遍， 弄清楚每一个被阻塞的进程是不是一定能被唤醒，判断有没有死锁问题，一定要确定线程终止的条件究竟是什么，看好一个函数究竟有没有轮询。</p>
+<p>当然，第二单元作业也有小小的遗憾，就是没有进行系统的优化。清明时事情太多耽搁了一周，就一直没能仔细研究研究电梯调度算法。不过正所谓简单的未必是差的，这种最简单的调度算法还是有一半的测试点性能分很高，这也算是意外之喜。</p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2021-04-27 09:20</span>&nbsp;
+<a href="https://www.cnblogs.com/phm19231049/">phm19231049</a>&nbsp;
+阅读(<span id="post_view_count">0</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=14692163" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(14692163);return false;">收藏</a></div>
+        </div>
+        <script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 674675, cb_blogApp = 'phm19231049', cb_blogUserGuid = '96c143c7-497e-41ed-b788-08d8d71b5727';
+    var cb_entryId = 14692163, cb_entryCreatedDate = '2021-04-27 09:20', cb_postType = 1;
+    updatePostStats(
+        [cb_entryId],
+        function(id, count) { $("#post_view_count").text(count) },
+        function(id, count) { $("#post_comment_count").text(count) })
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");
+</script>
+        <a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="under-post-card">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_card1"></div>
+    <div id="cnblogs_c2" class="under-post-card">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_card2"></div>
+    <div id="HistoryToday" class="under-post-card"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+
+    </div>
+</div>
+            </div>
+        </div>
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                <div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_c3"></div>
+                <div id="calendar"><div id="blog-calendar" style="display:none"></div></div>                
+                <script>loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <!-- begin:SingleColumn -->
+                    <div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+                    <!-- end:  SingleColumn -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+Copyright &copy; 2021 phm19231049
+<br /><span id="poweredby">Powered by .NET 5.0 on Kubernetes</span>
+
+    </div>
+</div>
+
+    
+
+    <input type="hidden" id="antiforgery_token" value="CfDJ8L-rpLgFVEJMgssCVvNUAjsrRrzNn5Ezp7V8XhAzMxwJOO-m6EjK1HJLFlqagFfQMnZ3-RGVHO972Tp4wE4Vj5I3TCnjP2RbxmbeF9RmZdsTlCaHFJYhch5YemY4L84BwCx4eRYN4P4z5N1E1UHdX68" />
+</body>
+</html>
